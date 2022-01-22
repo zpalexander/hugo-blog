@@ -2,6 +2,7 @@
 title: "In Browser Text Editor"
 date: 2014-06-07T15:30:34-08:00
 draft: false
+featured_image: "images/in-browser-text-editor/Writing.jpg"
 ---
 
 Here’s a neat little hack.
