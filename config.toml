@@ -1,7 +1,7 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = "Zach Alexander"
-theme = "ananke"
+theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
 
 [params]
   text_color = ""
@@ -13,6 +13,7 @@ theme = "ananke"
   background_color_class = "bg-black"
   featured_image = "/images/banner-snow-image.jpg"
   recent_posts_number = 5
+  disable_share = true
 
 [[params.ananke_socials]]
   name = "linkedin"
