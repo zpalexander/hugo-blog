@@ -1,6 +1,6 @@
 ---
 title: "Javascript Promises"
-date: 2022-01-22T15:02:18-08:00
+date: 2015-09-20T15:02:18-08:00
 draft: false
 ---
 
