@@ -38,7 +38,7 @@ In this example, we’re using the MongoDB native driver to connect to the datab
 
 This doesn’t look so bad, but what happens if you need to pass a third, or fourth or fifth callback in order to manipulate the data further? A relatively simple algorithm can quickly turn into something Node.js developers term “callback hell”.
 
-![Callback hell](/content/images/2016/05/gn3N5gB.png)
+![Callback hell](/images/javascript-promises/gn3N5gB.png)
 
 Code like this can be very hard to understand at first glance, and looks extremely unwieldy in a text editor. Callbacks are essentially an inelegant hack for getting around JavaScript’s non-blocking nature. There has to be a better way…
 
