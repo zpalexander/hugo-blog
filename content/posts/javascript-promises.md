@@ -1,5 +1,5 @@
 ---
-title: "Javascript Promises"
+title: "JavaScript Promises With Node.js"
 date: 2015-09-20T15:02:18-08:00
 draft: false
 ---
@@ -10,7 +10,7 @@ While non-blocking is a very desirable feature of JavaScript in the browser, the
 
 The most commonly used solution to this problem in the JavaScript community has been callbacks. A callback is a piece of executable code that is passed as an argument to other code, which is expected to call back (execute) the argument at some convenient time. Here’s an example of a callback that almost all  Node.js developers have seen:
 
-```
+```javascript
 mongodb.connect('mongodb://localhost:27017/mydb', function(err, db) {
     if (err) {
         throw err;
@@ -48,7 +48,7 @@ Code like this can be very hard to understand at first glance, and looks extreme
 
 Promises are a better way to write asynchronous JavaScript. A promise is essentially an object that, when returned from a function, represents an operation that hasn’t completed yet but is expected to in the future. Because that definition didn’t make sense to me the first time I read it either, here’s an example of the above MongoDB code written using promises instead of callbacks:
 
-```
+```javascript
 mongoClient.connectAsync('mongodb://localhost:27017/mydb')
     .then(function(db) {
         return db.collection('content').findAsync({})
@@ -72,7 +72,7 @@ Pretty cool, right? This code is cleaner-looking and way easier to understand th
 
 [Bluebird](https://www.npmjs.com/package/bluebird) is a fully-featured promise library for JavaScript. The project’s NPM package means that integration with a Node.js app is fairly simple. Bluebird’s strongest feature is that it allows you to “promisify” other Node modules in order to use them asynchronously. After running `npm install --save bluebird` on your Node project, you can use the following code to “promisify” the MongoDB module and use it asynchronously:
 
-```
+```javascript
 /* Dependencies */
 var Promise = require('bluebird');
 var mongoClient = Promise.promisifyAll(require('mongodb')).MongoClient;
@@ -100,7 +100,7 @@ Just use Bluebird’s `.promisifyAll()` method to create an async version of eve
 
 In the course of writing more sophisticated Node.js apps it sometimes becomes necessary to return a promise from your own function. Let’s extend our example above by hypothesizing that we want to be able to perform CRUD operations on the data that our DB call returns. In this particular instance, let’s implement a separate delete function that calls the code we wrote to get all content from the database, then looks through it for a specific value and deletes that value if it exists.
 
-```
+```javascript
 /* Dependencies */
 var Promise = require('bluebird');
 var mongoClient = Promise.promisifyAll(require('mongodb')).MongoClient;
@@ -153,7 +153,7 @@ And there you have it. Your getAllContent() function returns a promise, which yo
 
 You’ll almost never need to do this, but here’s how to wrap something in your own promise.
 
-```
+```javascript
 /* Dependencies */
 var Promise = require('bluebird');
 var mongoClient = Promise.promisifyAll(require('mongodb')).MongoClient;
