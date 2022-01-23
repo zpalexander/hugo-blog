@@ -1,5 +1,5 @@
 ---
-title: "Garage Cafe"
+title: "Beijing's Garage Cafe: An Ad-Hoc Startup Incubator"
 date: 2015-02-07T00:28:17-08:00
 draft: false
 featured_image: "/images/garage-cafe/IMG_5569.jpg"
