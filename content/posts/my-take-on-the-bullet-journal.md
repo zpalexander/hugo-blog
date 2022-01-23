@@ -3,6 +3,8 @@ title: "My Take on the Bullet Journal"
 date: 2014-06-28T15:32:26-08:00
 draft: false
 featured_image: "images/my-take-on-the-bullet-journal/notebook-and-pen.jpg"
+aliases:
+    - /my-take-on-the-bullet-journal/
 ---
 
 My memory is terrible. It always has been. When left to my own devices, I forget names, addresses, appointments, book titles and pretty much everything in between. As such, I’m always looking for a better way to keep my thoughts organized. I’ve tried a variety of organizational methods to combat this problem. As a student, I used to keep a daily agenda where I would religiously write down my assignments and due dates. This kept me well-organized, but I always felt limited by the finite amount of space the planner gave me for each day. The pre-designed boxes left no room for notes, thoughts or events. There was no way for me to easily remember the title of the obscure film I had heard about that day, or take notes on the interesting computer science concept I had just stumbled across.

@@ -3,6 +3,8 @@ title: "Switching to ZSH"
 date: 2017-04-15T16:14:11-08:00
 draft: false
 featured_image: "images/switching-to-zsh/cool-terminal-2.png"
+aliases:
+    - /switching-to-zsh/
 ---
 
 [Jeff Atwood](https://en.wikipedia.org/wiki/Jeff_Atwood) once famously proclaimed ["we are typists first, programmers second"](https://blog.codinghorror.com/we-are-typists-first-programmers-second/). While I think software development is [a little more complicated than that](https://developers.slashdot.org/story/10/12/25/2034201/Does-Typing-Speed-Really-Matter-For-Programmers), this quote brings up an important point: efficiency in software development hinges on the tooling we choose.

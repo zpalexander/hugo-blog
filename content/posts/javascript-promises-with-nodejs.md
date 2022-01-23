@@ -2,6 +2,8 @@
 title: "JavaScript Promises With Node.js"
 date: 2015-09-20T15:02:18-08:00
 draft: false
+aliases:
+    - /javascript-promises-with-node-js/
 ---
 
 JavaScript is a non-blocking programming language, which means that one chunk of JS code will not necessarily wait for the lines above it to execute before beginning itself. In many cases this is a pretty awesome feature of the language. Imagine if your website was only able to run one window.onload call at a time. If your page needed to perform a number of calculations or data insertions in order to render correctly, things would take forever to load and users would see a bunch of unstyled content and blank boxes at the beginning of every page load. Yuck.
@@ -38,7 +40,7 @@ In this example, we’re using the MongoDB native driver to connect to the datab
 
 This doesn’t look so bad, but what happens if you need to pass a third, or fourth or fifth callback in order to manipulate the data further? A relatively simple algorithm can quickly turn into something Node.js developers term “callback hell”.
 
-![Callback hell](/images/javascript-promises/gn3N5gB.png)
+![Callback hell](/images/javascript-promises-with-nodejs/gn3N5gB.png)
 
 Code like this can be very hard to understand at first glance, and looks extremely unwieldy in a text editor. Callbacks are essentially an inelegant hack for getting around JavaScript’s non-blocking nature. There has to be a better way…
 

@@ -3,6 +3,8 @@ title: "5 Easy Ways to Improve Web Accessibility"
 date: 2022-01-23T00:05:57-08:00
 draft: false
 featured_image: "/images/5-easy-ways-to-improve-web-accessibility/a11y.jpg"
+aliases:
+    - /5-easy-ways-to-improve-web-accessibility/
 ---
 
 These days it's hard to conceive of life without the internet. We have come a long way since the early days of the internet as a hobbyist's retreat full of text bulletin boards and personal "web logs". People now rely on the internet to pay bills, shop for necessities and even earn an income. The world is at your fingertips... if you can use a mouse... and see the screen... and hear the audio.

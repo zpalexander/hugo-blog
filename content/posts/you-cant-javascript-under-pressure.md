@@ -2,6 +2,8 @@
 title: "You Cant Javascript Under Pressure"
 date: 2014-06-20T16:53:11-08:00
 draft: false
+aliases:
+    - /you-cant-javascript-under-pressure/
 ---
 
 A fun little Javascript game was forwarded around my office recently, and I had a great time revisiting my elementary programming skills while defeating each of its levels. It’s called [“You Can’t Javascript Under Pressure”](http://games.usvsth3m.com/javascript-under-pressure/). I would recommend that everyone take the next 10-30 minutes out of their life to check it out.

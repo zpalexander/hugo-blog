@@ -2,6 +2,8 @@
 title: "Unit Testing in Java Play"
 date: 2016-04-05T00:37:56-08:00
 draft: false
+aliases:
+    - /unit-testing-in-java-play/
 ---
 
 The [Java Play framework](https://www.playframework.com/) is a Java development framework built on top of [Akka](http://akka.io/) that makes it easy to write scalable web services in either Java or Scala. It is fully RESTful and comes with a number of great features such as hot reloading, type safety and in-browser errors. If you are a Java developer who hasn’t yet tried Play, you are missing out on one of the best web frameworks ever developed for the language.

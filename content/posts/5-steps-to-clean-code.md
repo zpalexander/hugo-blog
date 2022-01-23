@@ -3,6 +3,8 @@ title: "5 Steps to Clean Code"
 date: 2022-01-22T23:57:44-08:00
 draft: false
 featured_image: "/images/5-steps-to-clean-code/spiral-galaxy-min.jpg"
+aliases:
+    - /the-best-quotes-from-clean-code/
 ---
 
 As a beginner developer working on pet projects at home, it's easy to argue that once code goes through the compiler, it's all the same. Right?

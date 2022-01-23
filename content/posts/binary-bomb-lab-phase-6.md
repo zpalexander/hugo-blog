@@ -3,6 +3,8 @@ title: "Binary Bomb Lab :: Phase 6"
 date: 2015-01-10T12:09:45-08:00
 draft: false
 featured_image: "/images/binary-bomb/bob-omb-featured-image.jpg"
+aliases:
+    - /binary-bomb-lab-phase-6/
 ---
 
 A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/binary-bomb-lab-set-up" >}}) section of the post.

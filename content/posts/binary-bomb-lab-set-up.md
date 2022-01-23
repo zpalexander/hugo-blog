@@ -3,6 +3,8 @@ title: "Binary Bomb Lab :: Set Up"
 date: 2015-01-04T12:09:42-08:00
 draft: false
 featured_image: "/images/binary-bomb/bob-omb-featured-image.jpg"
+aliases:
+    - /binary-bomb-lab-set-up/
 ---
 
 The first step on your way to getting through the bomb lab will be setting up your environment. This page will assume that you have decided to do the lab for fun and profit. If you are a student, you’ve probably already been given these materials by your professor. Get to work.

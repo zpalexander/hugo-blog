@@ -12,15 +12,15 @@ For the past few months I’ve been working on an [AngularJS](https://angularjs.
 
 Angular Material has an extremely useful directive called mdDialog. It allows developers to provide interactive modal dialog boxes to their users without all of the painful boilerplate usually associated with building your own from scratch.
 
-![mdDialog screenshot](/images/unknown-provider-angular/md-dialog-example-1024x639.png)
+![mdDialog screenshot](/images/debug-unknown-provider-minified-angularjs/md-dialog-example-1024x639.png)
 
 Seems great, right? It honestly is, and my team and I have been using this directive throughout our app with no problems. That is, until QA discovered a bug in our staging environment that was keeping one of our dialog boxes from opening and throwing a cryptic error in the console:
 
-![Console error screenshot](/images/unknown-provider-angular/minified-angular-error-1024x132.png)
+![Console error screenshot](/images/debug-unknown-provider-minified-angularjs/minified-angular-error-1024x132.png)
 
 Useless, right? While seasoned Angular developers will be able to catch what is happening here, most of them will also readily admit that this error is cryptic and unhelpful. Thankfully Angular has a feature that creates a custom docs page for you based on your error. You can see the URL for my custom error page on the first line. My page read:
 
-![Useless error](/images/unknown-provider-angular/useless-error-1024x550.png)
+![Useless error](/images/debug-unknown-provider-minified-angularjs/useless-error-1024x550.png)
 
 I’m certain that anyone reading this who has put in their time with Angular is nodding their head right now. This is the dreaded `Error: $injector:unpr Unknown Provider error`.
 
@@ -74,23 +74,23 @@ So I had my problem laid out. Somewhere in this app a dependency injection was g
 
 I spent almost an hour scouring the code related to my mdDialog box looking for a dependency that I had mis-declared or forgotten about, but I couldn’t find anything of the sort. Defeated, I started to look at the rest of the stacktrace that Angular had provided in the error, but I quickly realized that I’d need to use an un-minified version of the Angular library if I wanted to get anywhere. I swapped out the script tag and checked the stacktrace once more:
 
-![Unminified error](/images/unknown-provider-angular/unminified-angular-error.png)
+![Unminified error](/images/debug-unknown-provider-minified-angularjs/unminified-angular-error.png)
 
 Equally useless. Feeling hopeless, I decided to step into the Angular source to see if I could find anything useful there. I clicked the first line number given by the stacktrace which brought me to the function that Angular uses to actually create the custom docs URL that gets printed in the console. Interesting… I decided to set a breakpoint on it to see what I could grok from the arguments:
 
-![Breakpoint on error creator](/images/unknown-provider-angular/breakpoint-on-error-creator-1024x402.png)
+![Breakpoint on error creator](/images/debug-unknown-provider-minified-angularjs/breakpoint-on-error-creator-1024x402.png)
 
 Now I had something. Looking through the call stack on the right side of the developer tools, I noticed that `minErr()` makes a call to a function called `invoke()`. Invoking an error creator message must require some information about what error is occurring, so I stepped into it:
 
-![After clicking invoke](/images/unknown-provider-angular/after-clicking-invoke-1-1024x402.png)
+![After clicking invoke](/images/debug-unknown-provider-minified-angularjs/after-clicking-invoke-1-1024x402.png)
 
 What’s that? I recognized that the arguments being passed in looked a lot like my code. I did a project wide Find for the snippet in Sublime Text and lo and behold: I had found bug.
 
-![Bug snippet screenshot](/images/unknown-provider-angular/Screen-Shot-of-bug.png)
+![Bug snippet screenshot](/images/debug-unknown-provider-minified-angularjs/Screen-Shot-of-bug.png)
 
 While what’s causing the DI problem might not be immediately clear, I knew right away. I had declared this code within a controller. As such, the $scope variables being referenced in the controller function that is passed into mdDialog on line 96 belong to the controller in which this is declared. Angular dependency injection does NOT allow developers to inject one controller into another, as per the docs:
 
-![Screenshot of error message](/images/unknown-provider-angular/Screen-shot-of-error-msg.png)
+![Screenshot of error message](/images/debug-unknown-provider-minified-angularjs/Screen-shot-of-error-msg.png)
 
 Declaring a separate controller for the mdDialog solved the problem.
 

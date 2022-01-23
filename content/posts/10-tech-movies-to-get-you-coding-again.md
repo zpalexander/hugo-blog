@@ -3,6 +3,8 @@ title: "10 Tech Movies To Get You Coding Again"
 date: 2014-12-30T23:43:50-08:00
 draft: false
 featured_image: "images/10-tech-movies/3d-movie-audience.jpeg"
+aliases:
+    - /10-tech-movies-to-get-you-coding-again/
 ---
 
 Every creative person goes through phases where they question their commitment to their work, and software developers are no different. Maybe a recent project failed, maybe a simple app turned into a beast, or maybe you've been up to your eyeballs in debugging for weeks and you're wondering, "Why do I do this again?"
