@@ -19,7 +19,7 @@ After a few years working in the software industry, I kept noticing that the she
 
 Whereas my shell looked something like this:
 
-![Standard boring terminal screenshot](images/switching-to-zsh/terminal-mac.png)
+![Standard boring terminal screenshot](/images/switching-to-zsh/terminal-mac.png)
 
 Theirs tended to look more like this:
 
@@ -74,7 +74,7 @@ Run the command of your choice and that's it. One and done.
 
 #### 4. Choose a theme
 
-![sample list of themes](images/switching-to-zsh/zsh-theme-list-1.png)
+![sample list of themes](/images/switching-to-zsh/zsh-theme-list-1.png)
 
 Setting a custom theme with Oh My ZSH is simple. Oh My ZSH comes bundled with a bunch of themes by default. You can find a [list with screenshots on their wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/themes). If you want to see the files on your local filesystem, they live in <code>~/.oh-my-zsh/themes</code>.
 
@@ -107,5 +107,5 @@ As a VIM lover, one addition I personally made was to add a command mode to my s
 
 Bonus shot of my terminal (PII grayed out):
 
-![Screenfetch of my terminal](images/switching-to-zsh/my-terminal-screenshot-2.png)
+![Screenfetch of my terminal](/images/switching-to-zsh/my-terminal-screenshot-2.png)
 

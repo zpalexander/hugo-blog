@@ -21,4 +21,4 @@ theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
 
 [[params.ananke_socials]]
   name = "github"
-  url = "https://zpalexander.com/github"
+  url = "https://github.com/zpalexander"
