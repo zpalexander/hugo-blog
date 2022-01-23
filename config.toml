@@ -14,6 +14,7 @@ theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
   featured_image = "/images/banner-snow-image.jpg"
   recent_posts_number = 5
   disable_share = true
+  site_logo = "/images/logo.png"
 
 [[params.ananke_socials]]
   name = "linkedin"
