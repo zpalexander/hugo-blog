@@ -5,6 +5,7 @@ draft: false
 featured_image: "images/switching-to-zsh/cool-terminal-2.png"
 aliases:
     - /switching-to-zsh/
+tags: ["Productivity", "Fun", "Getting Started", "Tools"]
 ---
 
 [Jeff Atwood](https://en.wikipedia.org/wiki/Jeff_Atwood) once famously proclaimed ["we are typists first, programmers second"](https://blog.codinghorror.com/we-are-typists-first-programmers-second/). While I think software development is [a little more complicated than that](https://developers.slashdot.org/story/10/12/25/2034201/Does-Typing-Speed-Really-Matter-For-Programmers), this quote brings up an important point: efficiency in software development hinges on the tooling we choose.
@@ -31,7 +32,9 @@ I had heard talk of alternative shells like [ZSH](http://www.zsh.org/) before, b
 
 ZSH provides a huge number of improvements over other shells and I could write an entire post just comparing and contrasting the benefits and drawbacks. Instead, I'll provide you with [this excellent slide deck](//www.slideshare.net/jaguardesignstudio/why-zsh-is-cooler-than-your-shell-16194692) about the benefits of ZSH over Bash:
 
+{{< rawhtml >}}
 <iframe src="//www.slideshare.net/slideshow/embed_code/key/1XBPbsul67hF67" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+{{< /rawhtml >}}
 
 ---
 

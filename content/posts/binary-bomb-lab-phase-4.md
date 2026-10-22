@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/binary-bomb/bob-omb-featured-image.jpg"
 aliases:
     - /binary-bomb-lab-phase-4/
+tags: ["IA32", "Fun", "Security"]
 ---
 
 A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/binary-bomb-lab-set-up" >}}) section of the post.

@@ -1,7 +1,10 @@
 ---
 title: "Debugging \"Unknown Provider\" In Minified Angular.js"
-date: 2016-01-16T00:46:05-08:00
+date: 2016-01-27T20:09:00-08:00
 draft: false
+tags: ["JavaScript", "Angular"]
+aliases:
+    - /debug-unknown-provider-minified-angularjs/
 ---
 
 For the past few months I’ve been working on an [AngularJS](https://angularjs.org/) app that makes use of [Angular Material](https://material.angularjs.org/latest/) as a Bootstrap-like front-end library. I recently had to solve one of the hardest bugs I’ve ever faced in Angular, and I’d like to share my debugging technique with anyone who might encounter the same problem down the road. While the bug was related to the use of Angular Material in my case, it could occur in vanilla Angular as well, so don’t stop reading just yet!

@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/beijings-garage-cafe-startups/IMG_5569.jpg"
 aliases:
     - "/beijings-garage-cafe-startups/"
+tags: ["China", "Startups"]
 ---
 
 Peking University went on holiday last month in observance of Chinese New Year. As such, I knew I would be logging quite a few extra programming hours over the course of February. While I don’t mind working part-time from the comfort of my apartment’s bedroom, I actually kind of hate working from home full time. There are benefits of course: fewer interruptions, more comfortable and configurable workspace and no commute. Nevertheless, [I start to go a little crazy](http://theoatmeal.com/comics/working_home) when I spend over 16 hours a day in the same 10′ x 10′ space.

@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/binary-bomb/bob-omb-featured-image.jpg"
 aliases:
     - /binary-bomb-lab-set-up/
+tags: ["IA32", "Fun", "Security"]
 ---
 
 The first step on your way to getting through the bomb lab will be setting up your environment. This page will assume that you have decided to do the lab for fun and profit. If you are a student, you’ve probably already been given these materials by your professor. Get to work.

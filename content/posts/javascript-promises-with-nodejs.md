@@ -4,6 +4,7 @@ date: 2015-09-20T15:02:18-08:00
 draft: false
 aliases:
     - /javascript-promises-with-node-js/
+tags: ["JavaScript", "Node.js"]
 ---
 
 JavaScript is a non-blocking programming language, which means that one chunk of JS code will not necessarily wait for the lines above it to execute before beginning itself. In many cases this is a pretty awesome feature of the language. Imagine if your website was only able to run one window.onload call at a time. If your page needed to perform a number of calculations or data insertions in order to render correctly, things would take forever to load and users would see a bunch of unstyled content and blank boxes at the beginning of every page load. Yuck.

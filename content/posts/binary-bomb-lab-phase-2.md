@@ -1,10 +1,11 @@
 ---
 title: "Binary Bomb Lab :: Phase 2"
-date: 2015-01-07T12:09:45-08:00
+date: 2015-01-06T06:48:00-08:00
 draft: false
 featured_image: "/images/binary-bomb/bob-omb-featured-image.jpg"
 aliases:
     - /binary-bomb-lab-phase-2/
+tags: ["IA32", "Fun", "Security"]
 ---
 
 A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/binary-bomb-lab-set-up" >}}) section of the post.

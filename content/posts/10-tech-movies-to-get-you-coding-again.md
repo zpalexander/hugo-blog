@@ -5,6 +5,7 @@ draft: false
 featured_image: "images/10-tech-movies/3d-movie-audience.jpeg"
 aliases:
     - /10-tech-movies-to-get-you-coding-again/
+tags: ["Fun"]
 ---
 
 Every creative person goes through phases where they question their commitment to their work, and software developers are no different. Maybe a recent project failed, maybe a simple app turned into a beast, or maybe you've been up to your eyeballs in debugging for weeks and you're wondering, "Why do I do this again?"
@@ -80,7 +81,7 @@ Whenever people ask me what I mean when I say “I work with open source softwar
 
 #### 5. Ex Machina
 
-![Ex Machina still](/content/images/2016/12/ex-machina.jpg)
+![Ex Machina still](/images/10-tech-movies/ex-machina.jpg)
 
 Ex Machina is a refreshing take on the tired AI-gone-wrong sci-fi trope. Whereas most movies about artificial intelligence get stuck on the surface question of where draw the line between what makes intelligence "artificial" versus "real", Ex Machina goes deeper. The plot is essentially one big [Turing Test](https://en.wikipedia.org/wiki/Turing_test), using the fictional discovery of ["strong AI"](https://www.ocf.berkeley.edu/~arihuang/academic/research/strongai3.html) to explore a fundamental anxiety that underpins all social interaction: does the person you're talking to really like you, or are they just faking it?
 

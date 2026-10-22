@@ -1,9 +1,10 @@
 ---
 title: "Your Referer Is Showing"
-date: 2016-06-08T00:18:28-08:00
+date: 2016-07-08T12:54:31-07:00
 draft: false
 aliases:
     - /your-referer-is-showing/
+tags: ["Security", "Privacy"]
 ---
 
 Did you know that every time you click through to a new webpage, you're voluntarily telling that new webpage where you came from?
