@@ -56,6 +56,17 @@ main {
   text-decoration: underline;
 }
 
+/* Code blocks sized relative to the body text like the old site (theme default is
+   body-size text, double line spacing and 1.5em padding) */
+pre {
+  font-size: .875em;
+}
+
+pre code {
+  line-height: 1.5;
+  padding: .5em;
+}
+
 /* "read more" button, styled after the old Ghost site's "Older Posts" button
    (black outline, bold label, chevron that slides on hover). Sized to the
    small meta text around it (date, byline), the same on every page. */
