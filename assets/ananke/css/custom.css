@@ -635,3 +635,39 @@ header nav[role="navigation"] .nav-current {
 .dim:visited {
   transition: opacity .15s ease-in, color .15s ease-in;
 }
+
+/* /posts/ and tag pages (theme's list.html): the first card's top edge as far below the
+   banner as the homepage's first post (40px below 30em, 48px from 30em). The empty page
+   content block is dropped (it still had pv3 / pv4-l padding), and the grid's top margin
+   (mt5, 4rem) plus the article's top padding (pa3 / pa4-ns) adds up to the gap. */
+main > article > section.cf:empty {
+  display: none;
+}
+
+main > article > section.mt5 {
+  margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 30em) {
+  main > article > section.mt5 {
+    margin-top: 1rem;
+  }
+}
+
+/* Post and About page titles as far below the banner as the homepage's first post (40px
+   below 30em, 48px from 30em). The theme's header mt4 (2rem) and the title's mt3 (1rem)
+   collapse into 32px below 60em (the article is only a flex container from 60em), so
+   the gap is set once, on the title. */
+.is-page article > header {
+  margin-top: 0;
+}
+
+.is-page article > header h1 {
+  margin-top: 2.5rem;
+}
+
+@media screen and (min-width: 30em) {
+  .is-page article > header h1 {
+    margin-top: 3rem;
+  }
+}
