@@ -1,5 +1,5 @@
 ---
-title: "Resume"
+title: "About"
 date: 2022-01-23T12:57:57-08:00
 draft: false
 ---

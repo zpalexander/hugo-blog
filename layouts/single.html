@@ -1,6 +1,8 @@
 {{ define "header" }}
    {{/* We can override any block in the baseof file be defining it in the template */}}
-  {{ partials.Include "page-header.html" . }}
+  {{/* Posts and pages show the homepage's banner (name, subtitle, nav), with their own
+       featured image as the background; see layouts/_partials/site-header.html */}}
+  {{ partials.Include "site-header.html" . }}
 {{ end }}
 
 {{ define "main" }}

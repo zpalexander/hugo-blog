@@ -8,6 +8,18 @@ theme = "ananke"
 [pagination]
   pagerSize = 9
 
+# Header nav links (rendered by the theme's site-navigation.html, overridden in
+# layouts/_partials/site-navigation.html). pageRef lets Hugo mark the current page.
+[[menus.main]]
+  name = "Posts"
+  pageRef = "/posts"
+  weight = 10
+
+[[menus.main]]
+  name = "About"
+  pageRef = "/resume"
+  weight = 20
+
 [params]
   text_color = ""
   favicon = ""
@@ -15,6 +27,9 @@ theme = "ananke"
   description = "Senior software engineer at Amazon. I do all things web."
   # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
   background_color_class = "bg-black"
+  # banner images fill the fixed-height banner and are cropped equally top and bottom
+  # (theme default for the site banner: "cover bg-top", which crops only the bottom)
+  featured_image_class = "cover bg-center"
   recent_posts_number = 5
   disable_share = true
   # dates like the old site: "20 December 2017"
@@ -31,12 +46,12 @@ theme = "ananke"
   [cascade.target]
     kind = "{home,section,taxonomy,term,404}"
 
-# Posts show only the image in their banner; the title is below it, like the old site
+# The About page (/resume/) shows no date (the theme's ananke.show_date switch)
 [[cascade]]
-  [cascade.params]
-    omit_header_text = true
+  [cascade.params.ananke]
+    show_date = false
   [cascade.target]
-    path = "/posts/**"
+    path = "/resume"
 
 [params.ananke]
   # files in assets/ananke/css, bundled into the theme's main.css

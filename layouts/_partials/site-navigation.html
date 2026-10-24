@@ -1,0 +1,31 @@
+{{/* Copied from Ananke v2.19.1 (themes/ananke/layouts/_partials/site-navigation.html).
+     Changes: the logo home link is labelled "Home" for screen readers, and the menu link
+     for the current page or section gets .nav-current and aria-current.
+     Styled in assets/ananke/css/custom.css */}}
+<nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l center items-center justify-between">
+    <a href="{{ .Site.Home.RelPermalink }}" class="f3 fw2 hover-white white-90 dib no-underline" aria-label="Home">
+      {{ with .Site.Params.site_logo }}
+        <img src="{{ urls.RelURL . }}" class="w100 mw5-ns" alt="" />
+      {{ else }}
+        {{ .Site.Title }}
+      {{ end }}
+    </a>
+    <div class="flex-l items-center">
+      {{ partials.Include "i18nlist.html" . }}
+      {{ if .Site.Menus.main }}
+        <ul class="{{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pr0 ml3" "pl0 mr3" }}">
+          {{ range .Site.Menus.main }}
+          {{ $current := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          <li class="list f5 f4-ns fw4 dib {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl3" "pr3" }}">
+            <a class="hover-white white-90 no-underline{{ if $current }} nav-current{{ end }}" href="{{ .URL }}"{{ if $current }} aria-current="page"{{ end }} title="{{ lang.Translate "pageTitle" . }}">
+              {{ .Name }}
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+      {{ partials.IncludeCached "social/follow.html" . }}
+    </div>
+  </div>
+</nav>

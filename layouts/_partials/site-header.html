@@ -1,4 +1,15 @@
+{{/* Every page that uses this header (homepage, posts, About, /posts/; not the 404)
+     shows the homepage's banner so the header doesn't change between pages: name and
+     subtitle come from the homepage, the background is the page's own featured image (the
+     homepage's if it has none), and the nav uses this page, so it marks the right link as
+     current. home-banner styles the homepage name (custom.css). Tag pages (/tags/ and
+     each tag) show their own title instead, styled by tag-banner. */}}
+{{ $is_tag_page := in (slice "taxonomy" "term") .Kind }}
+{{ $banner := cond $is_tag_page . site.Home }}
 {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
+{{ if not $featured_image }}
+  {{ $featured_image = partials.Include "func/GetFeaturedImage.html" site.Home }}
+{{ end }}
 {{ if $featured_image }}
   {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
   {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
@@ -10,20 +21,15 @@
   </style>
   <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
     {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
-    <div class="{{ $cover_dimming_class }} site-banner relative flex items-center justify-center">
+    <div class="{{ $cover_dimming_class }} site-banner{{ if $banner.IsHome }} home-banner{{ end }}{{ if $is_tag_page }} tag-banner{{ end }} relative flex items-center justify-center">
       <div class="absolute top-0 left-0 w-100 z-1">
         {{ partials.Include "site-navigation.html" .}}
       </div>
       <div class="{{ $header_section_class }}">
         <h1 class="f2 f-subheadline-l fw2 white-90 mv0 lh-title">
-          {{/* On the homepage the site name links to the resume */}}
-          {{ if .IsHome }}
-            <a href="{{ "resume/" | relURL }}" class="link white-90 hover-white">{{ .Title | compare.Default .Site.Title }}</a>
-          {{ else }}
-            {{ .Title | compare.Default .Site.Title }}
-          {{ end }}
+          {{ $banner.Title | compare.Default .Site.Title }}
         </h1>
-        {{ with .Params.description }}
+        {{ with $banner.Params.description }}
           <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
             {{ . }}
           </h2>
