@@ -3,6 +3,11 @@ locale = 'en-us'
 title = "Zach Alexander"
 theme = "ananke"
 
+# /posts/ is a 3-column grid, so 9 per page fills every row (Hugo's default is 10).
+# The homepage sets its own page size (recent_posts_number, layouts/home.html).
+[pagination]
+  pagerSize = 9
+
 [params]
   text_color = ""
   favicon = ""

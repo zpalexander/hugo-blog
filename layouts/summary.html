@@ -1,17 +1,18 @@
 {{ $show_date := partials.Include "func/ShowDate.html" . }}
-<div class="w-100 mb4 nested-copy-line-height relative bg-white">
-  <div class="mb3 pa4 gray overflow-hidden bg-white">
-    {{with .CurrentSection.Title }}<span class="f6 db">{{ . }}</span>{{end}}
+{{/* post-card: full height of its grid cell, "read more" pinned to the bottom left; styled in assets/ananke/css/custom.css */}}
+<div class="post-card w-100 nested-copy-line-height relative bg-white">
+  <div class="post-card-body pa4 dark-gray overflow-hidden bg-white">
+    <h1 class="f3 near-black mt0 mb2">
+      <a href="{{ .RelPermalink }}" class="link black dim">
+        {{ .Title }}
+      </a>
+    </h1>
     {{ if $show_date }}
       <time class="f6 db" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
         {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
       </time>
     {{ end }}
-    <h1 class="f3 near-black">
-      <a href="{{ .RelPermalink }}" class="link black dim">
-        {{ .Title }}
-      </a>
-    </h1>
+    {{ partials.Include "summary-tags.html" . }}
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       {{/* Plain text only, so images and embeds from the article never appear in the summary */}}
       {{ .Summary | strings.ReplaceRE `</(p|li|h[1-6]|blockquote|pre|figure|div)>|<br\s*/?>` " " | transform.Plainify | transform.HTMLUnescape }}

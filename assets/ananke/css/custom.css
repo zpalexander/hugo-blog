@@ -168,21 +168,29 @@ pre code {
   transform: translateX(-.3125em);
 }
 
-/* Small tag links under each summary title (layouts/summary-with-image.html) */
+/* "Tags" and small tag pills under each summary title (layouts/_partials/summary-tags.html),
+   a smaller version of the pills at the bottom of posts (theme's tags.html + red links) */
 .summary-tags {
   margin: -.5rem 0 1rem;
   font-size: .75rem;
-  color: #777;
+  line-height: 1.5;
 }
 
-.summary-tags a {
-  color: inherit;
+.summary-tags .tag-pill {
+  display: inline-block;
+  margin: .25rem 0 0 .25rem;
+  padding: .125rem .625rem;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  color: #e51843;
+  font-family: "Source Sans Pro", sans-serif;
   text-decoration: underline;
+  transition: transform .25s ease-out;
 }
 
-.summary-tags a:hover,
-.summary-tags a:focus {
-  color: #000;
+.summary-tags .tag-pill:hover,
+.summary-tags .tag-pill:focus {
+  transform: scale(1.05);
 }
 
 /* Cut summaries off at 4 lines with an ellipsis (layouts/summary-with-image.html) */
@@ -220,4 +228,30 @@ footer[role="contentinfo"] .ananke-social-link {
   aspect-ratio: 16 / 9;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* /posts/ and tag-page cards (layouts/summary.html): each card fills its grid cell and
+   the "read more" button sits at the bottom left, whatever the summary length */
+.post-card,
+.post-card-body {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.post-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card-body .summary-tags {
+  margin: .5rem 0 1rem;
+}
+
+.post-card-body .read-more {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.post-card-body .nested-links {
+  margin-bottom: .75rem;
 }

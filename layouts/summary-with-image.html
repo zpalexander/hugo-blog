@@ -2,16 +2,17 @@
 {{ $show_date := partials.Include "func/ShowDate.html" . }}
 <article class="bb b--black-10">
   <div class="db pv4 ph3 ph0-l dark-gray no-underline">
-    <div class="flex-column flex-row-ns flex">
+    {{/* Image above the text below 60em (theme: beside it from 30em, too cramped on phones and tablets) */}}
+    <div class="flex-column flex-row-l flex">
       {{ if $featured_image }}
           {{/* Trimming the slash and adding absURL make sure the image works no matter collections.Where our site lives */}}
-        <div class="{{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl3-ns" "pr3-ns" }} mb4 mb0-ns w-100 w-40-ns">
+        <div class="{{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl3-l" "pr3-l" }} mb4 mb0-l w-100 w-40-l">
           <a href="{{.RelPermalink}}" class="db grow">
             <img src="{{ $featured_image }}" class="img" alt="image from {{ .Title }}">
           </a>
         </div>
       {{ end }}
-      <div class="blah w-100{{ if $featured_image }} w-60-ns {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pr3-ns" "pl3-ns" }}{{ end }}">
+      <div class="blah w-100{{ if $featured_image }} w-60-l {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pr3-l" "pl3-l" }}{{ end }}">
         {{ if $show_date }}
           <time class="f6 db" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
             {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
@@ -22,12 +23,7 @@
             {{ .Title }}
             </a>
         </h1>
-        {{/* Small tag links under the title, like the old site; styled in assets/ananke/css/custom.css */}}
-        {{ with .GetTerms "tags" }}
-          <p class="summary-tags">
-            {{- range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end -}}
-          </p>
-        {{ end }}
+        {{ partials.Include "summary-tags.html" . }}
         <div class="summary-text f6 f5-l lh-copy nested-copy-line-height nested-links">
           {{/* Plain text only, so images and embeds from the article never appear in the summary */}}
           {{ .Summary | strings.ReplaceRE `</(p|li|h[1-6]|blockquote|pre|figure|div)>|<br\s*/?>` " " | transform.Plainify | transform.HTMLUnescape }}

@@ -1,0 +1,8 @@
+{{/* "Tags" and small pill links under a summary title (summary-with-image.html, summary.html),
+     like the tag pills at the bottom of posts; styled in assets/ananke/css/custom.css */}}
+{{ with .GetTerms "tags" }}
+  <p class="summary-tags">
+    Tags:
+    {{ range . }}<a href="{{ .RelPermalink }}" class="tag-pill">{{ .LinkTitle }}</a>{{ end }}
+  </p>
+{{ end }}

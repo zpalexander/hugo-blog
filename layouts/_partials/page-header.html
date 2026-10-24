@@ -42,6 +42,9 @@
               {{ . }}
             </div>
           {{ end }}
+        {{ else }}
+          {{/* Posts (omit_header_text) show the site name in the banner instead of their title */}}
+          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Site.Title }}</div>
         {{ end }}
       </div>
     </div>
@@ -50,6 +53,12 @@
   <header>
     <div class="{{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
       {{ partials.Include "site-navigation.html" . }}
+      {{/* Posts without a banner image show the site name under the nav */}}
+      {{ if .Params.omit_header_text }}
+        <div class="tc pb4 ph3 ph4-ns">
+          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Site.Title }}</div>
+        </div>
+      {{ end }}
     </div>
   </header>
 {{ end }}

@@ -16,7 +16,12 @@
       </div>
       <div class="{{ $header_section_class }}">
         <h1 class="f2 f-subheadline-l fw2 white-90 mv0 lh-title">
-          {{ .Title | compare.Default .Site.Title }}
+          {{/* On the homepage the site name links to the resume */}}
+          {{ if .IsHome }}
+            <a href="{{ "resume/" | relURL }}" class="link white-90 hover-white">{{ .Title | compare.Default .Site.Title }}</a>
+          {{ else }}
+            {{ .Title | compare.Default .Site.Title }}
+          {{ end }}
         </h1>
         {{ with .Params.description }}
           <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
