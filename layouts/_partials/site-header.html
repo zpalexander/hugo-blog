@@ -3,10 +3,10 @@
   {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
   {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
   {{ $header_section_class := .Param "header_section_class" | compare.Default "tc ph3 ph4-ns" }}
-  {{/* The nav is overlaid on the top of the banner so the title can be centered in the full image height */}}
+  {{/* The nav is overlaid on the top of the banner so the title can be centered in the full image height.
+       Same height at every width (no jump at 60em). */}}
   <style>
     .site-banner { min-height: 22rem; }
-    @media screen and (min-width: 60em) { .site-banner { min-height: 30rem; } }
   </style>
   <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
     {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}

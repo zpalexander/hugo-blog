@@ -255,3 +255,89 @@ footer[role="contentinfo"] .ananke-social-link {
 .post-card-body .nested-links {
   margin-bottom: .75rem;
 }
+
+/* Header nav (theme's site-navigation.html): logo left, social icons right at every width
+   (the theme only lays it out as a row from 60em and stacks the icons under the logo) */
+header nav[role="navigation"] > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header nav[role="navigation"] .ananke-social-link {
+  padding-top: 0;
+}
+
+/* Summary preview text the same near-black as article text (theme: dark-gray #333) */
+.summary-text,
+.post-card-body .nested-links {
+  color: #222;
+}
+
+/* Homepage below 60em (where the cards stack): the old site's phone sizes; the preview
+   text, which the old site didn't have, at the article text size */
+@media screen and (max-width: 59.99em) {
+  .summary-text {
+    font-size: 1.125rem;
+  }
+
+  article time.f6 {
+    font-size: 1rem;
+  }
+
+  article h1.f3 {
+    font-size: 1.75rem;
+  }
+
+  .summary-tags,
+  .read-more {
+    font-size: 1rem;
+  }
+}
+
+/* Homepage banner name on phones, below 30em: as wide as the post column below it
+   (100% - 64px, layouts/home.html padding), so it wraps to "Zach" / "Alexander" and
+   "Alexander" spans the column. Sized in container units of the banner (so a desktop
+   scrollbar doesn't count). "Alexander" in Source Sans Pro 200 is 3.946em wide;
+   0.2483 = 0.98 / 3.946, leaving a little slack so it never overflows. From 30em it's
+   a fixed 5rem (80px), the theme's desktop size (f-subheadline-l), instead of the
+   theme's 36px up to 60em. */
+@media screen and (min-width: 30em) {
+  .is-home .site-banner h1 {
+    font-size: 5rem;
+  }
+}
+
+.is-home .site-banner {
+  container-type: inline-size;
+}
+
+@media screen and (max-width: 29.99em) {
+  .is-home .site-banner h1 {
+    max-width: calc(100cqw - 64px);
+    margin-left: auto;
+    margin-right: auto;
+    font-size: calc((100cqw - 64px) * .2483);
+    line-height: 1.1;
+  }
+}
+
+/* Homepage nav (logo, social icons) on phones, below 30em: as wide as the post column
+   below it (100% - 64px, layouts/home.html padding), so the logo and the last icon line
+   up with the posts' edges. From 30em the theme's nav spacing applies. */
+@media screen and (max-width: 29.99em) {
+  .is-home header nav[role="navigation"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .is-home header nav[role="navigation"] > div {
+    width: calc(100% - 64px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .is-home header nav[role="navigation"] .ananke-social-link:last-child {
+    margin-right: 0;
+  }
+}
