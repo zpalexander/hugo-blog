@@ -2,7 +2,7 @@
      like the tag pills at the bottom of posts; styled in assets/ananke/css/custom.css */}}
 {{ with .GetTerms "tags" }}
   <p class="summary-tags">
-    Tags:
+    <span class="summary-tags-label">Tags:</span>
     {{ range . }}<a href="{{ .RelPermalink }}" class="tag-pill">{{ .LinkTitle }}</a>{{ end }}
   </p>
 {{ end }}

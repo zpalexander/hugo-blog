@@ -43,8 +43,9 @@
             </div>
           {{ end }}
         {{ else }}
-          {{/* Posts (omit_header_text) show the site name in the banner instead of their title */}}
-          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Site.Title }}</div>
+          {{/* Posts (omit_header_text) show the site name in the banner instead of their title,
+               centered at every width (the section class only centers from 60em, tc-l) */}}
+          <div class="tc f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Site.Title }}</div>
         {{ end }}
       </div>
     </div>
