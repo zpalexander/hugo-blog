@@ -1,0 +1,32 @@
+/* "read more" button, matching the old Ghost site's "Older Posts" button */
+.read-more {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: .3125rem 1.875rem;
+  border: .1875rem solid #000;
+  border-radius: .1875rem;
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.read-more:hover,
+.read-more:focus {
+  color: #000;
+  text-decoration: none;
+}
+
+.read-more svg {
+  width: .75rem;
+  height: .75rem;
+  margin-left: .25rem;
+  vertical-align: -.05em;
+  transition: transform .3s;
+}
+
+.read-more:hover svg,
+.read-more:focus svg {
+  transform: translateX(.3125rem);
+}
