@@ -1,0 +1,78 @@
+{{- /* Shared RSS feed for /index.xml and /rss/ (Ghost's old feed URL), called by
+     layouts/home.rss.xml and layouts/home.ghostrss.xml with (dict "page" . "self" "<output format>").
+     Copied from Hugo v0.168.0's embedded RSS template (tpl/tplimpl/embedded/templates/rss.xml).
+     Hugo renders both feed formats from one lookup, so each feed's entry template passes its
+     own format name for the atom:link self URL. Changes from Hugo's: the page comes from
+     .page, the self link from .self, and root-relative src/href URLs in descriptions are made
+     absolute (Hugo does that itself only for its RSS format; feed readers can't resolve
+     relative URLs). Re-copy on Hugo upgrades. */ -}}
+{{- $page := .page }}
+{{- $self := .self }}
+{{- $siteRoot := strings.TrimSuffix "/" site.BaseURL }}
+{{- $authorEmail := "" }}
+{{- with site.Params.author }}
+	{{- if reflect.IsMap . }}
+		{{- with .email }}
+			{{- $authorEmail = . }}
+		{{- end }}
+	{{- end }}
+{{- end }}
+
+{{- $authorName := "" }}
+{{- with site.Params.author }}
+	{{- if reflect.IsMap . }}
+		{{- with .name }}
+			{{- $authorName = . }}
+		{{- end }}
+	{{- else }}
+		{{- $authorName = . }}
+	{{- end }}
+{{- end }}
+
+{{- $pctx := $page }}
+{{- if $page.IsHome }}{{ $pctx = $page.Site }}{{ end }}
+{{- $pages := slice }}
+{{- if or $page.IsHome $page.IsSection }}
+	{{- $pages = $pctx.RegularPages }}
+{{- else }}
+	{{- $pages = $pctx.Pages }}
+{{- end }}
+{{- $limit := $page.Site.Config.Services.RSS.Limit }}
+{{- if ge $limit 1 }}
+	{{- $pages = $pages | first $limit }}
+{{- end }}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>{{ if eq $page.Title $page.Site.Title }}{{ $page.Site.Title }}{{ else }}{{ with $page.Title }}{{ . }} on {{ end }}{{ $page.Site.Title }}{{ end }}</title>
+		<link>{{ $page.Permalink }}</link>
+		<description>Recent content {{ if ne $page.Title $page.Site.Title }}{{ with $page.Title }}in {{ . }} {{ end }}{{ end }}on {{ $page.Site.Title }}</description>
+		<generator>Hugo</generator>
+		<language>{{ site.Language.Locale }}</language>
+		{{ with $authorEmail }}
+			<managingEditor>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</managingEditor>
+		{{ end }}
+		{{ with $authorEmail }}
+			<webMaster>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</webMaster>
+		{{ end }}
+		{{ with $page.Site.Copyright }}
+			<copyright>{{ . }}</copyright>
+		{{ end }}
+		{{ if not $page.Date.IsZero }}
+			<lastBuildDate>{{ (index $pages.ByLastmod.Reverse 0).Lastmod.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+		{{ end }}
+		{{- with $page.OutputFormats.Get $self }}
+			{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+		{{- end }}
+		{{- range $pages }}
+			<item>
+				<title>{{ .Title }}</title>
+				<link>{{ .Permalink }}</link>
+				<pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+				{{- with $authorEmail }}<author>{{ . }}{{ with $authorName }} ({{ . }}){{ end }}</author>{{ end }}
+				<guid>{{ .Permalink }}</guid>
+				<description>{{ .Summary | strings.ReplaceRE `(src|href)="/([^/"])` (printf `$1="%s/$2` $siteRoot) | transform.XMLEscape | safeHTML }}</description>
+			</item>
+		{{- end }}
+	</channel>
+</rss>

@@ -1,0 +1,2 @@
+{{- /* /rss/ feed (GhostRSS output format, config.toml); shared feed in _partials/rss-feed.xml */ -}}
+{{- partials.Include "rss-feed.xml" (dict "page" . "self" "GhostRSS") -}}

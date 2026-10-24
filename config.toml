@@ -3,6 +3,22 @@ locale = 'en-us'
 title = "Zach Alexander"
 theme = "ananke"
 
+# /robots.txt from the theme's template (allows crawling in production builds)
+enableRobotsTXT = true
+
+# The RSS feed also at /rss/ (Ghost's feed URL), so existing subscribers keep working;
+# Hugo's own feed stays at /index.xml. Written as /rss/index.xml. Whether Pages serves
+# that for /rss/ (and with an XML content type) is tested on the github.io deploy.
+[outputFormats.GhostRSS]
+  mediaType = "application/rss+xml"
+  baseName = "index"
+  path = "rss"
+  isHTML = false
+  noUgly = true
+
+[outputs]
+  home = ["html", "rss", "GhostRSS"]
+
 # /posts/ is a 3-column grid, so 9 per page fills every row (Hugo's default is 10).
 # The homepage sets its own page size (recent_posts_number, layouts/home.html).
 [pagination]

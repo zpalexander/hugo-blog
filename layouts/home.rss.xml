@@ -1,0 +1,3 @@
+{{- /* /index.xml feed (Hugo's RSS output format); shared feed in _partials/rss-feed.xml.
+     Needed because Hugo would otherwise render this feed from home.ghostrss.xml too. */ -}}
+{{- partials.Include "rss-feed.xml" (dict "page" . "self" "RSS") -}}
