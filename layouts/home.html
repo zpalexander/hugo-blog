@@ -1,3 +1,12 @@
+{{/* Browser title (layouts/baseof.html): the site name, with "Page N" on /page/2/ etc.
+     Paginates with exactly the same arguments as below, so both get the same paginator. */}}
+{{ define "title" -}}
+  {{- $mainSections := site.Params.mainSections | compare.Default (collections.Slice "post") -}}
+  {{- $section := collections.Where $.Site.RegularPages "Section" "in" $mainSections -}}
+  {{- $paginator := .Paginate $section ($.Param "recent_posts_number" | compare.Default 3) -}}
+  {{- if compare.Gt $paginator.PageNumber 1 }}Page {{ $paginator.PageNumber }} | {{ end }}{{ .Site.Title -}}
+{{- end }}
+
 {{ define "main" }}
 
   {{- $config := site.Params.ananke.home -}}
