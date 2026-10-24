@@ -22,7 +22,13 @@
             {{ .Title }}
             </a>
         </h1>
-        <div class="f6 f5-l lh-copy nested-copy-line-height nested-links">
+        {{/* Small tag links under the title, like the old site; styled in assets/ananke/css/custom.css */}}
+        {{ with .GetTerms "tags" }}
+          <p class="summary-tags">
+            {{- range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end -}}
+          </p>
+        {{ end }}
+        <div class="summary-text f6 f5-l lh-copy nested-copy-line-height nested-links">
           {{/* Plain text only, so images and embeds from the article never appear in the summary */}}
           {{ .Summary | strings.ReplaceRE `</(p|li|h[1-6]|blockquote|pre|figure|div)>|<br\s*/?>` " " | transform.Plainify | transform.HTMLUnescape }}
         </div>

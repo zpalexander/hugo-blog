@@ -130,3 +130,29 @@ pre code {
 .read-more.newer-posts:focus svg {
   transform: translateX(-.3125em);
 }
+
+/* Small tag links under each summary title (layouts/summary-with-image.html) */
+.summary-tags {
+  margin: -.5rem 0 1rem;
+  font-size: .75rem;
+  color: #777;
+}
+
+.summary-tags a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.summary-tags a:hover,
+.summary-tags a:focus {
+  color: #000;
+}
+
+/* Cut summaries off at 4 lines with an ellipsis (layouts/summary-with-image.html) */
+.summary-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
