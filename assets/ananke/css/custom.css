@@ -212,17 +212,40 @@ pre code {
   display: inline-block;
   margin: 0;
   padding: .125rem .625rem;
-  border: 1px solid currentColor;
+  border: 1px solid #e51843;
   border-radius: 9999px;
   color: #e51843;
   font-family: "Source Sans Pro", sans-serif;
   text-decoration: underline;
-  transition: transform .25s ease-out;
+  transition: background-color .2s ease-out, color .2s ease-out;
 }
 
+/* Hover/focus: the pill fills with the accent red and the text turns white, in both
+   directions; same for the tag pills at the bottom of posts (theme's tags.html, whose
+   "grow" scale animation is turned off) */
 .summary-tags .tag-pill:hover,
 .summary-tags .tag-pill:focus {
-  transform: scale(1.05);
+  background-color: #e51843;
+  color: #fff;
+}
+
+/* The border stays red (not currentColor, which turns white on hover and leaves a light
+   ring around the fill). The theme's grow class also puts the pill on its own GPU layer
+   (translateZ(0), hidden backface), which renders the rounded edges roughly; off. */
+.is-page article .nested-links a.br-pill {
+  border-color: #e51843;
+  transform: none;
+  backface-visibility: visible;
+  transition: background-color .2s ease-out, color .2s ease-out;
+}
+
+.is-page article .nested-links a.br-pill:hover,
+.is-page article .nested-links a.br-pill:focus,
+.is-page article .nested-links a.br-pill:active {
+  transform: none;
+  background-color: #e51843;
+  color: #fff;
+  text-decoration: underline;
 }
 
 /* Cut summaries off at 4 lines with an ellipsis (layouts/summary-with-image.html) */
