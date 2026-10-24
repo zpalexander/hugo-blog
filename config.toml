@@ -5,7 +5,6 @@ theme = "ananke"
 
 [params]
   text_color = ""
-  author = "Zach Alexander"
   favicon = ""
   site_logo = "/images/logo.png"
   description = "Senior software engineer at Amazon. I do all things web."
@@ -13,12 +12,23 @@ theme = "ananke"
   background_color_class = "bg-black"
   recent_posts_number = 5
   disable_share = true
+  # dates like the old site: "20 December 2017"
+  date_format = "2 January 2006"
+  # post body: the theme's serif font, justified (tachyons "tj") like the old site
+  post_content_classes = "serif tj"
 
 # Default banner image for every page that doesn't set its own featured_image
 # (Ananke 2.19 no longer falls back to a site-wide featured_image param)
 [[cascade]]
   [cascade.params]
     featured_image = "/images/banner-snow-image.jpg"
+
+# Posts show only the image in their banner; the title is below it, like the old site
+[[cascade]]
+  [cascade.params]
+    omit_header_text = true
+  [cascade.target]
+    path = "/posts/**"
 
 [params.ananke]
   # files in assets/ananke/css, bundled into the theme's main.css
@@ -32,3 +42,13 @@ theme = "ananke"
 
 [params.ananke.social.github]
   profilelink = "https://github.com/zpalexander"
+
+# Hugo related content, indexed only by front matter `keywords` (which no post sets),
+# so posts have no related list: no "Related" sidebar, single centered column like the old site
+[related]
+  threshold = 80
+  includeNewer = true
+  toLower = false
+  [[related.indices]]
+    name = "keywords"
+    weight = 100

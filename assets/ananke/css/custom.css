@@ -10,6 +10,52 @@ main {
   flex: 1 0 auto;
 }
 
+/* Post pages, laid out like the old site: centered bold sans-serif title and date
+   under the banner, centered images, red underlined links. */
+.is-page article > header {
+  text-align: center;
+}
+
+.is-page article > header h1 {
+  font-family: "avenir next", avenir, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #000;
+}
+
+@media screen and (min-width: 60em) {
+  .is-page article > header h1 {
+    font-size: 4.25rem;
+  }
+}
+
+.is-page article > header time {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: normal;
+  color: #222;
+}
+
+/* The theme pads the text column on the right for its "Related" sidebar, which posts no
+   longer have; drop it so the text is centered under the title */
+.is-page article > .nested-copy-line-height {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.is-page article .nested-copy-line-height img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.is-page article .nested-links a {
+  color: #e51843;
+  text-decoration: underline;
+}
+
 /* "read more" button, styled after the old Ghost site's "Older Posts" button
    (black outline, bold label, chevron that slides on hover). Sized to the
    small meta text around it (date, byline), the same on every page. */
