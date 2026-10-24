@@ -1,0 +1,5 @@
+# Overrides of the Ananke theme's English strings (themes/ananke/i18n/en.toml)
+
+# Heading of the related posts box at the bottom of each post
+[related]
+other = "Up Next..."
