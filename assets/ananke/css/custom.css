@@ -447,3 +447,52 @@ main[role="main"] {
     margin-right: 0;
   }
 }
+
+/* Homepage cards from 60em (image beside the text): the image is exactly as tall as the
+   text next to it, whatever the title length or tag count, cropped to fill (object-fit:
+   cover, centered). It is positioned out of flow so its own shape never sets the row
+   height; the text does. The preview is cut to 3 lines instead of 4, so with a one-line
+   title the frame is 16:10 (see the fixed width below). Below 60em the stacked image
+   keeps its natural shape and the preview keeps 4 lines. */
+@media screen and (min-width: 60em) {
+  .home-card .flex > div:first-child:not(.blah) {
+    position: relative;
+  }
+
+  .home-card .flex > div:first-child:not(.blah) > a {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 1rem;
+  }
+
+  .home-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-card .summary-text {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+/* ...and the image a fixed 357px wide (column 373px incl. its 16px pr3-l gap; theme: 40%,
+   w-40-l), so the 16:10 frame is
+   always 223px tall: the height of the text block with a one-line title (date, title,
+   tags, 3 preview lines, "read more" and the 1rem/.25rem gaps). The text column takes
+   the rest. If the text sizes or gaps change, recompute: width = text height x 1.6. */
+@media screen and (min-width: 60em) {
+  .home-card .flex > div:first-child:not(.blah) {
+    flex: 0 0 373px;
+    width: 373px;
+  }
+
+  .home-card .blah {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+}
