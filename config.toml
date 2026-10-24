@@ -17,11 +17,14 @@ theme = "ananke"
   # post body: the theme's serif font, justified (tachyons "tj") like the old site
   post_content_classes = "serif tj"
 
-# Default banner image for every page that doesn't set its own featured_image
-# (Ananke 2.19 no longer falls back to a site-wide featured_image param)
+# Default banner image for the homepage, list pages and 404 (Ananke 2.19 no longer falls
+# back to a site-wide featured_image param). Single pages (posts, resume) show a banner
+# only if they set their own featured_image, like the old site.
 [[cascade]]
   [cascade.params]
     featured_image = "/images/banner-snow-image.jpg"
+  [cascade.target]
+    kind = "{home,section,taxonomy,term,404}"
 
 # Posts show only the image in their banner; the title is below it, like the old site
 [[cascade]]
