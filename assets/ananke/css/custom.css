@@ -45,6 +45,16 @@ main {
   padding-right: 0;
 }
 
+/* Article headings centered, and a thin single-line divider, like the old site */
+.is-page article > .nested-copy-line-height :is(h1, h2, h3, h4, h5, h6) {
+  text-align: center;
+}
+
+.is-page article > .nested-copy-line-height hr {
+  border: 0;
+  border-top: 1px solid #ddd;
+}
+
 .is-page article .nested-copy-line-height img {
   display: block;
   margin-left: auto;
