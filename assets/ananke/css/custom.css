@@ -613,3 +613,16 @@ header nav[role="navigation"] .nav-current {
     font-size: 1.625rem;
   }
 }
+
+/* Tag icon after the tag pages' banner title (site-header.html): about cap height, in the
+   title's color, kept on the same line as the title's last letter */
+.tag-title-end {
+  white-space: nowrap;
+}
+
+.tag-icon {
+  width: .6em;
+  height: .6em;
+  margin-left: .2em;
+  vertical-align: -.02em;
+}
