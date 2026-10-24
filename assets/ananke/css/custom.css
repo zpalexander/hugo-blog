@@ -92,14 +92,17 @@ header .f-subheadline-l,
   margin-right: auto;
 }
 
+/* Red text uses #d3163e, a touch darker than the accent #e51843 (fills, borders, the nav
+   underline, selection), so it meets 4.5:1 on every background it sits on: 4.83:1 on
+   the page, 4.58:1 on the "Up Next..." box, 5.31:1 on white (#e51843: 4.20 / 3.98 / 4.62) */
 .is-page article .nested-links a {
-  color: #e51843;
+  color: #d3163e;
   text-decoration: underline;
 }
 
 .is-page article .nested-links a:hover,
 .is-page article .nested-links a:focus {
-  color: #c5153a;
+  color: #a3112f;
   text-decoration: none;
 }
 
@@ -214,7 +217,7 @@ pre code {
   padding: .125rem .625rem;
   border: 1px solid #e51843;
   border-radius: 9999px;
-  color: #e51843;
+  color: #d3163e;
   font-family: "Source Sans Pro", sans-serif;
   text-decoration: underline;
   transition: background-color .2s ease-out, color .2s ease-out;
