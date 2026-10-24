@@ -429,3 +429,21 @@ main[role="main"] {
   max-width: 100%;
   overflow-x: auto;
 }
+
+/* Homepage at tablet widths, 30em to 60em: the post list is full width with the nav's
+   32px side padding (its pa4-ns), instead of the theme's 70% column (w-70-ns) plus the
+   cards' own 16px (ph3), so the posts line up with the logo and the last icon */
+@media screen and (min-width: 30em) and (max-width: 59.99em) {
+  .is-home .home-posts {
+    width: 100%;
+  }
+
+  .home-card > div {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .is-home header nav[role="navigation"] .ananke-social-link:last-child {
+    margin-right: 0;
+  }
+}

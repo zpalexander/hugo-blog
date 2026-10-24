@@ -19,7 +19,8 @@
   {{ $section_count := len $section }}
 
   {{ if and ($show_recent_posts) (compare.Ge $section_count 1) }}
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
+    {{/* home-posts: full width at tablet sizes, see assets/ananke/css/custom.css */}}
+    <div class="home-posts pa3 pa4-ns w-100 w-70-ns center">
       {{ $n_posts := $.Param "recent_posts_number" | compare.Default 3 }}
 
       {{/* Paginated instead of the theme's fixed recent posts + "More" list:
