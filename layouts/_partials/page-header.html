@@ -35,7 +35,8 @@
       <div class="{{ $header_section_class }}">
         {{ if not .Params.omit_header_text }}
           {{/* Same size as the homepage title (f-subheadline-l) instead of the theme's f1-l */}}
-          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Title | compare.Default .Site.Title }}</div>
+          {{/* Hugo hard-codes the 404 page's title as "404 Page not found"; show it with a colon */}}
+          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ if eq .Kind "404" }}404: Page not found{{ else }}{{ .Title | compare.Default .Site.Title }}{{ end }}</div>
           {{ with .Params.description  }}
             <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
               {{ . }}
