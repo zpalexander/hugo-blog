@@ -4,15 +4,22 @@ date: 2022-01-23T12:57:57-08:00
 draft: false
 ---
 
+Hi! My name is Zach and I love making software. I taught myself how to code in college, and now I work as a Senior Software Development Engineer at Amazon. In my day job, I serve as a technical lead on cross-team and cross-organizational projects to build software for millions of Amazon customers.
+
+![A picture of my face. I'm a white guy in my 30s, clean shaven with a fade haircut.](/images/resume/self-portrait.png)
+
+I'm a full stack developer with a focus on websites and apps. I believe building software is a craft. This blog documents my learnings and failures as a software developer, as well as the few pieces of wisdom I've picked up along the way.
+
+
 ## Experience
 **[Amazon](https://amazon.com)** - **Seattle, WA** - *10/2016 - Present*
 
 *Software Development Engineer* - Working to create next generation Amazon experiences on the web platform.
 
+
 **[The New York Times](http://open.blogs.nytimes.com/)** – **New York, NY** – *8/2015 - 9/2016*
 
 *Software Developer* - Worked with Advertising Technology to build a user analytics platform and web dashboard for native advertising content. Maintained and enhanced the front-end core Ad Library for [nytimes.com](https://nytimes.com) and developed native advertising content for the site.
-
 
 
 **[Elephant Ventures](http://www.elephantventures.com/)** – **New York, NY – Beijing, CN** – *3/2014 - 8/2014, 9/2014 – 8/2015 (Part Time)*
