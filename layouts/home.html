@@ -1,0 +1,51 @@
+{{ define "main" }}
+
+  {{- $config := site.Params.ananke.home -}}
+  {{- $text_alignment := "tc-l" -}}
+  {{- if eq $config.content_alignment "left" -}}
+    {{- $text_alignment = "tl-l" -}}
+  {{- else if eq $config.content_alignment "right" -}}
+    {{- $text_alignment = "tr-l" -}}
+  {{- end -}}
+
+  <article class="cf ph3 ph5-l pv3 pv4-l f4 {{ $text_alignment }} center measure-wide lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
+    {{ .Content }}
+  </article>
+
+  {{/* Define a section to pull recent posts from. For Hugo 0.20 this will default to the section with the most number of pages. */}}
+  {{ $mainSections := site.Params.mainSections | compare.Default (collections.Slice "post") }}
+  {{ $show_recent_posts := site.Params.ananke.show_recent_posts }}
+  {{ $section := collections.Where $.Site.RegularPages "Section" "in" $mainSections }}
+  {{ $section_count := len $section }}
+
+  {{ if and ($show_recent_posts) (compare.Ge $section_count 1) }}
+    <div class="pa3 pa4-ns w-100 w-70-ns center">
+      {{ $n_posts := $.Param "recent_posts_number" | compare.Default 3 }}
+
+      {{/* Paginated instead of the theme's fixed recent posts + "More" list:
+           recent_posts_number posts per page, at /, /page/2/, /page/3/ ... */}}
+      {{ $paginator := .Paginate $section $n_posts }}
+
+      <section class="w-100 mw8">
+        {{ range $paginator.Pages }}
+          <div class="w-100 mb4 relative">
+            {{ .Render "summary-with-image" }}
+          </div>
+        {{ end }}
+      </section>
+
+      {{ if compare.Gt $paginator.TotalPages 1 }}
+        {{/* Newer/Older buttons like the old site; styled in assets/ananke/css/custom.css */}}
+        <nav class="home-pager tc" role="navigation">
+          {{ with $paginator.Prev }}
+            <a href="{{ .URL }}" class="read-more newer-posts"><svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="11,2 5,8 11,14" fill="none" stroke="currentColor" stroke-width="3"/></svg>Newer Posts</a>
+          {{ end }}
+          {{ with $paginator.Next }}
+            <a href="{{ .URL }}" class="read-more older-posts">Older Posts<svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="5,2 11,8 5,14" fill="none" stroke="currentColor" stroke-width="3"/></svg></a>
+          {{ end }}
+        </nav>
+      {{ end }}
+
+    </div>
+  {{ end }}
+{{ end }}

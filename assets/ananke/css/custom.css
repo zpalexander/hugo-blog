@@ -32,3 +32,22 @@
 .read-more:focus svg {
   transform: translateX(.3125em);
 }
+
+/* Homepage Newer/Older Posts buttons (layouts/home.html), centered side by side like the old site */
+.home-pager {
+  margin-top: 1rem;
+}
+
+.home-pager .read-more {
+  margin: 0 .25rem;
+}
+
+.read-more.newer-posts svg {
+  margin-left: 0;
+  margin-right: .25em;
+}
+
+.read-more.newer-posts:hover svg,
+.read-more.newer-posts:focus svg {
+  transform: translateX(-.3125em);
+}
