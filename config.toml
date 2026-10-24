@@ -8,6 +8,12 @@ theme = "ananke"
 [pagination]
   pagerSize = 9
 
+# Code highlighting with CSS classes instead of inline styles, so colors can be adjusted:
+# Monokai from assets/ananke/css/syntax-monokai.css, with two colors lightened in
+# custom.css to meet WCAG AA contrast
+[markup.highlight]
+  noClasses = false
+
 # Header nav links (rendered by the theme's site-navigation.html, overridden in
 # layouts/_partials/site-navigation.html). pageRef lets Hugo mark the current page.
 [[menus.main]]
@@ -55,7 +61,7 @@ theme = "ananke"
 
 [params.ananke]
   # files in assets/ananke/css, bundled into the theme's main.css
-  custom_css = ["custom.css"]
+  custom_css = ["syntax-monokai.css", "custom.css"]
 
 [params.ananke.social.follow]
   networks = ["linkedin", "github"]
