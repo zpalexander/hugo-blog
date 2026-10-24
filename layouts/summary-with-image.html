@@ -14,16 +14,17 @@
         </div>
       {{ end }}
       <div class="blah w-100{{ if $featured_image }} w-60-l {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pr3-l" "pl3-l" }}{{ end }}">
-        {{ if $show_date }}
-          <time class="f6 db" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
-            {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
-          </time>
-        {{ end }}
         <h1 class="f3 fw7 athelas mt0 lh-title">
           <a href="{{.RelPermalink}}" class="color-inherit dim link">
             {{ .Title }}
             </a>
         </h1>
+        {{/* Date below the title, like post pages */}}
+        {{ if $show_date }}
+          <time class="f6 db" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
+            {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
+          </time>
+        {{ end }}
         {{ partials.Include "summary-tags.html" . }}
         <div class="summary-text f6 f5-l lh-copy nested-copy-line-height nested-links">
           {{/* Plain text only, so images and embeds from the article never appear in the summary */}}

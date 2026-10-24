@@ -362,10 +362,15 @@ main[role="main"] {
 
 /* Homepage cards (layouts/summary-with-image.html): one spacing scale. 2rem at the card's
    top and bottom (its pv4 padding; layouts/home.html has no margin between cards), 1.5rem
-   from the stacked image to the date, .25rem from the date to the title, 1rem between the
-   other blocks. Replaces the theme's title margin, image mb4 and read-more margin. */
+   from the stacked image to the title, .25rem from the title to the date below it, 1rem
+   between the other blocks. Replaces the theme's title margin, image mb4 and read-more
+   margin. */
 .home-card h1 {
-  margin: .25rem 0 0;
+  margin: 0;
+}
+
+.home-card time {
+  margin-top: .25rem;
 }
 
 .home-card .summary-tags,

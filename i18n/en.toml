@@ -1,5 +1,9 @@
 # Overrides of the Ananke theme's English strings (themes/ananke/i18n/en.toml)
 
+# Summary card button, capitalized like the homepage's "Older Posts" button
+[readMore]
+other = "Read More"
+
 # Heading of the related posts box at the bottom of each post
 [related]
 other = "Up Next..."
