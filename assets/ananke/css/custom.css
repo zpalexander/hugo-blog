@@ -149,9 +149,37 @@ pre code {
   transform: translateX(.3125em);
 }
 
-/* Homepage Newer/Older Posts buttons (layouts/home.html), centered side by side like the old site */
+/* Homepage Newer/Older Posts buttons (layouts/home.html), centered side by side like the old site,
+   and vertically centered between the last card's divider and the footer: the same space
+   above and below, 2.5rem on phones and 3rem from 30em. On the homepage the space below is
+   all <main>'s bottom padding (the post list's own bottom padding is removed). */
 .home-pager {
-  margin-top: 1rem;
+  margin-top: 2.5rem;
+}
+
+/* The same space between the banner and the first post's content (image or title): the
+   post list's top padding plus the first card's 2rem (pv4) */
+.is-home .home-posts {
+  padding-top: .5rem;
+  padding-bottom: 0;
+}
+
+.is-home main[role="main"] {
+  padding-bottom: 2.5rem;
+}
+
+@media screen and (min-width: 30em) {
+  .home-pager {
+    margin-top: 3rem;
+  }
+
+  .is-home main[role="main"] {
+    padding-bottom: 3rem;
+  }
+
+  .is-home .home-posts {
+    padding-top: 1rem;
+  }
 }
 
 .home-pager .read-more {
