@@ -75,4 +75,4 @@ Here’s the top of the `<main>` function. Nothing interesting yet, so let’s s
 
 Bingo. Now that we’ve found the function calls for each bomb phase, we can use GDB to set breakpoints at each of their addresses in order to step through how they work.
 
-Time to get started on [Phase 1]({{< ref "/binary-bomb-lab-phase-1" >}}).
+Time to get started on [Phase 1]({{< ref "/posts/binary-bomb-lab-phase-1" >}}).

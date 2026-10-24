@@ -1,0 +1,46 @@
+{{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
+{{ if $featured_image }}
+  {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
+  {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
+  {{ $header_section_class := .Param "header_section_class" | compare.Default "tc ph3 ph4-ns" }}
+  {{/* The nav is overlaid on the top of the banner so the title can be centered in the full image height */}}
+  <style>
+    .site-banner { min-height: 22rem; }
+    @media screen and (min-width: 60em) { .site-banner { min-height: 30rem; } }
+  </style>
+  <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
+    {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+    <div class="{{ $cover_dimming_class }} site-banner relative flex items-center justify-center">
+      <div class="absolute top-0 left-0 w-100 z-1">
+        {{ partials.Include "site-navigation.html" .}}
+      </div>
+      <div class="{{ $header_section_class }}">
+        <h1 class="f2 f-subheadline-l fw2 white-90 mv0 lh-title">
+          {{ .Title | compare.Default .Site.Title }}
+        </h1>
+        {{ with .Params.description }}
+          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+            {{ . }}
+          </h2>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+{{ else }}
+  <header>
+    <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
+      {{ partials.Include "site-navigation.html" . }}
+      {{ $header_section_class := .Param "header_section_class" | compare.Default "tc pv3 ph3 ph4-ns" }}
+      <div class="{{ $header_section_class }}">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          {{ .Title | compare.Default .Site.Title }}
+        </h1>
+        {{ with .Params.description }}
+          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+            {{ . }}
+          </h2>
+        {{ end }}
+      </div>
+    </div>
+  </header>
+{{ end }}

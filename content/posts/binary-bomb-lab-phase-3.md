@@ -8,16 +8,16 @@ aliases:
 tags: ["IA32", "Fun", "Security"]
 ---
 
-A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/binary-bomb-lab-set-up" >}}) section of the post.
+A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/posts/binary-bomb-lab-set-up" >}}) section of the post.
 
 If you're looking for a specific phase:
 
-* [Here is Phase 1]({{< ref "/binary-bomb-lab-phase-1" >}})
-* [Here is Phase 2]({{< ref "/binary-bomb-lab-phase-2" >}})
-* [Here is Phase 3]({{< ref "/binary-bomb-lab-phase-3" >}})
-* [Here is Phase 4]({{< ref "/binary-bomb-lab-phase-4" >}})
-* [Here is Phase 5]({{< ref "/binary-bomb-lab-phase-5" >}})
-* [Here is Phase 6]({{< ref "/binary-bomb-lab-phase-6" >}})
+* [Here is Phase 1]({{< ref "/posts/binary-bomb-lab-phase-1" >}})
+* [Here is Phase 2]({{< ref "/posts/binary-bomb-lab-phase-2" >}})
+* [Here is Phase 3]({{< ref "/posts/binary-bomb-lab-phase-3" >}})
+* [Here is Phase 4]({{< ref "/posts/binary-bomb-lab-phase-4" >}})
+* [Here is Phase 5]({{< ref "/posts/binary-bomb-lab-phase-5" >}})
+* [Here is Phase 6]({{< ref "/posts/binary-bomb-lab-phase-6" >}})
 
 ---
 
@@ -59,4 +59,4 @@ In other words, our character should be a lowercase ‘b’. Lo and behold, when
 
 ![Phase 3 correct answer: 1 b 214](/images/binary-bomb/phase-3-correct-answer.png)
 
-Looks like the bomb squad is in town! Time to take on [Phase 4]({{< ref "/binary-bomb-lab-phase-4" >}}).
+Looks like the bomb squad is in town! Time to take on [Phase 4]({{< ref "/posts/binary-bomb-lab-phase-4" >}}).

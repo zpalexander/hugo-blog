@@ -1,5 +1,5 @@
 baseURL = 'https://zpalexander.com/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = "Zach Alexander"
 theme = "ananke"
 
@@ -11,16 +11,24 @@ theme = "ananke"
   description = "Senior software engineer at Amazon. I do all things web."
   # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
   background_color_class = "bg-black"
-  featured_image = "/images/banner-snow-image.jpg"
   recent_posts_number = 5
   disable_share = true
+
+# Default banner image for every page that doesn't set its own featured_image
+# (Ananke 2.19 no longer falls back to a site-wide featured_image param)
+[[cascade]]
+  [cascade.params]
+    featured_image = "/images/banner-snow-image.jpg"
+
+[params.ananke]
   # files in assets/ananke/css, bundled into the theme's main.css
   custom_css = ["custom.css"]
 
-[[params.ananke_socials]]
-  name = "linkedin"
-  url = "https://www.linkedin.com/in/zpalexander"
+[params.ananke.social.follow]
+  networks = ["linkedin", "github"]
 
-[[params.ananke_socials]]
-  name = "github"
-  url = "https://github.com/zpalexander"
+[params.ananke.social.linkedin]
+  profilelink = "https://www.linkedin.com/in/zpalexander"
+
+[params.ananke.social.github]
+  profilelink = "https://github.com/zpalexander"

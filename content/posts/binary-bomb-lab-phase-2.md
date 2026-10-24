@@ -8,16 +8,16 @@ aliases:
 tags: ["IA32", "Fun", "Security"]
 ---
 
-A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/binary-bomb-lab-set-up" >}}) section of the post.
+A note to the reader: For explanation on how to set up the lab environment see the ["Introduction"]({{< ref "/posts/binary-bomb-lab-set-up" >}}) section of the post.
 
 If you're looking for a specific phase:
 
-* [Here is Phase 1]({{< ref "/binary-bomb-lab-phase-1" >}})
-* [Here is Phase 2]({{< ref "/binary-bomb-lab-phase-2" >}})
-* [Here is Phase 3]({{< ref "/binary-bomb-lab-phase-3" >}})
-* [Here is Phase 4]({{< ref "/binary-bomb-lab-phase-4" >}})
-* [Here is Phase 5]({{< ref "/binary-bomb-lab-phase-5" >}})
-* [Here is Phase 6]({{< ref "/binary-bomb-lab-phase-6" >}})
+* [Here is Phase 1]({{< ref "/posts/binary-bomb-lab-phase-1" >}})
+* [Here is Phase 2]({{< ref "/posts/binary-bomb-lab-phase-2" >}})
+* [Here is Phase 3]({{< ref "/posts/binary-bomb-lab-phase-3" >}})
+* [Here is Phase 4]({{< ref "/posts/binary-bomb-lab-phase-4" >}})
+* [Here is Phase 5]({{< ref "/posts/binary-bomb-lab-phase-5" >}})
+* [Here is Phase 6]({{< ref "/posts/binary-bomb-lab-phase-6" >}})
 
 ---
 
@@ -56,4 +56,4 @@ Either way, the second passphrase ends up being `1 2 6 24 120 720`.
 
 ![Phase 2 solution: 1 2 6 24 120 720](/images/binary-bomb/Screen-Shot-2014-12-14-at-14-29-06.png)
 
-On to the next challenge! [Phase 3]({{< ref "/binary-bomb-lab-phase-3" >}}).
+On to the next challenge! [Phase 3]({{< ref "/posts/binary-bomb-lab-phase-3" >}}).
