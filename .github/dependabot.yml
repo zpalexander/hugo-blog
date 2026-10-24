@@ -1,0 +1,9 @@
+# Update PRs for the SHA-pinned actions in .github/workflows (Dependabot updates the SHA and
+# the version comment together). The Hugo version and the theme submodule are upgraded by
+# hand, together, following the upgrade checklist in the migration plan.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
