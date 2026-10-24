@@ -1,14 +1,16 @@
-/* "read more" button, matching the old Ghost site's "Older Posts" button */
+/* "read more" button, styled after the old Ghost site's "Older Posts" button
+   (black outline, bold label, chevron that slides on hover). Sized to the
+   small meta text around it (date, byline), the same on every page. */
 .read-more {
   display: inline-block;
-  margin-top: 1rem;
-  padding: .3125rem 1.875rem;
-  border: .1875rem solid #000;
-  border-radius: .1875rem;
+  margin-top: .75rem;
+  padding: .25em 1.25em;
+  border: 2px solid #000;
+  border-radius: 3px;
   color: #000;
-  font-size: 1rem;
+  font-size: .875rem;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.25;
   text-decoration: none;
 }
 
@@ -19,14 +21,14 @@
 }
 
 .read-more svg {
-  width: .75rem;
-  height: .75rem;
-  margin-left: .25rem;
+  width: .75em;
+  height: .75em;
+  margin-left: .25em;
   vertical-align: -.05em;
   transition: transform .3s;
 }
 
 .read-more:hover svg,
 .read-more:focus svg {
-  transform: translateX(.3125rem);
+  transform: translateX(.3125em);
 }

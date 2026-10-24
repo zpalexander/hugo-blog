@@ -1,0 +1,19 @@
+  {{ $show_date := partials.Include "func/ShowDate.html" . }}
+  <div class="mb3 pa4 {{ $.Param "text_color" | compare.Default "mid-gray" }} overflow-hidden">
+    {{ if $show_date }}
+      <time class="f6 db" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
+        {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
+      </time>
+    {{ end }}
+    <h1 class="f3 near-black">
+      <a href="{{ .RelPermalink }}" class="link black dim">
+        {{ .Title }}
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      {{/* Plain text only, so images and embeds from the article never appear in the summary */}}
+      {{ .Summary | strings.ReplaceRE `</(p|li|h[1-6]|blockquote|pre|figure|div)>|<br\s*/?>` " " | transform.Plainify | transform.HTMLUnescape }}
+    </div>
+  {{/* Styled in assets/ananke/css/custom.css to match the old site's buttons */}}
+  <a href="{{.RelPermalink}}" class="read-more">{{ $.Param "read_more_copy" | compare.Default (lang.Translate "readMore") }}<svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="5,2 11,8 5,14" fill="none" stroke="currentColor" stroke-width="3"/></svg></a>
+  </div>
