@@ -1,3 +1,15 @@
+/* Keep the footer at the bottom of the window on short pages (e.g. 404):
+   the page is at least the window's height and <main> takes the spare space. */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 /* "read more" button, styled after the old Ghost site's "Older Posts" button
    (black outline, bold label, chevron that slides on hover). Sized to the
    small meta text around it (date, byline), the same on every page. */
