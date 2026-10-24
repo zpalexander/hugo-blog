@@ -5,6 +5,7 @@ draft: false
 featured_image: "images/switching-to-zsh/cool-terminal-2.png"
 aliases:
     - /switching-to-zsh/
+    - /switching-to-zsh/amp/
 tags: ["Productivity", "Fun", "Getting Started", "Tools"]
 ---
 

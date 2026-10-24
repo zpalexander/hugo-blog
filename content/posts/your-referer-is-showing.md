@@ -4,6 +4,7 @@ date: 2016-07-08T12:54:31-07:00
 draft: false
 aliases:
     - /your-referer-is-showing/
+    - /your-referer-is-showing/amp/
 tags: ["Security", "Privacy"]
 ---
 

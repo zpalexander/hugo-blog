@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/5-easy-ways-to-improve-web-accessibility/a11y.jpg"
 aliases:
     - /5-easy-ways-to-improve-web-accessibility/
+    - /5-easy-ways-to-improve-web-accessibility/amp/
 tags: ["a11y"]
 ---
 

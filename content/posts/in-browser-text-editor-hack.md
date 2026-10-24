@@ -5,6 +5,7 @@ draft: false
 featured_image: "images/in-browser-text-editor-hack/Writing.jpg"
 aliases:
     - /in-browser-text-editor-hack/
+    - /in-browser-text-editor-hack/amp/
 tags: ["Productivity"]
 ---
 

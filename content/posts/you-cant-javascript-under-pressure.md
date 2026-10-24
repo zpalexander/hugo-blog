@@ -4,6 +4,7 @@ date: 2014-07-20T18:50:00-07:00
 draft: false
 aliases:
     - /you-cant-javascript-under-pressure/
+    - /you-cant-javascript-under-pressure/amp/
 tags: ["JavaScript", "Fun"]
 ---
 

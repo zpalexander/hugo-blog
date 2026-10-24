@@ -5,6 +5,7 @@ draft: false
 featured_image: "images/10-tech-movies/3d-movie-audience.jpeg"
 aliases:
     - /10-tech-movies-to-get-you-coding-again/
+    - /10-tech-movies-to-get-you-coding-again/amp/
 tags: ["Fun"]
 ---
 

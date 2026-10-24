@@ -4,6 +4,7 @@ date: 2015-09-20T15:02:18-08:00
 draft: false
 aliases:
     - /javascript-promises-with-node-js/
+    - /javascript-promises-with-node-js/amp/
 tags: ["JavaScript", "Node.js"]
 ---
 

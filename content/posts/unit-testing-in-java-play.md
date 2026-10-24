@@ -4,6 +4,7 @@ date: 2016-04-05T00:37:56-08:00
 draft: false
 aliases:
     - /unit-testing-in-java-play/
+    - /unit-testing-in-java-play/amp/
 tags: ["Java", "Testing"]
 ---
 

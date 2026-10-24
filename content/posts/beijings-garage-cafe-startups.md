@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/beijings-garage-cafe-startups/IMG_5569.jpg"
 aliases:
     - "/beijings-garage-cafe-startups/"
+    - "/beijings-garage-cafe-startups/amp/"
 tags: ["China", "Startups"]
 ---
 

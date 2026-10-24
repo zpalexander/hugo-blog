@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/binary-bomb/bob-omb-featured-image.jpg"
 aliases:
     - /binary-bomb-lab-phase-2/
+    - /binary-bomb-lab-phase-2/amp/
 tags: ["IA32", "Fun", "Security"]
 ---
 

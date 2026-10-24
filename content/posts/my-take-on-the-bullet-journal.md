@@ -5,6 +5,7 @@ draft: false
 featured_image: "images/my-take-on-the-bullet-journal/notebook-and-pen.jpg"
 aliases:
     - /my-take-on-the-bullet-journal/
+    - /my-take-on-the-bullet-journal/amp/
 tags: ["Productivity"]
 ---
 

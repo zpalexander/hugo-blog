@@ -5,6 +5,7 @@ draft: false
 featured_image: "/images/5-steps-to-clean-code/spiral-galaxy-min.jpg"
 aliases:
     - /the-best-quotes-from-clean-code/
+    - /the-best-quotes-from-clean-code/amp/
 tags: ["Productivity"]
 ---
 
