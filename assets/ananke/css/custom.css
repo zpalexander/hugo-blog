@@ -626,3 +626,12 @@ header nav[role="navigation"] .nav-current {
   margin-right: .2em;
   vertical-align: -.02em;
 }
+
+/* Links with both of the theme's .link and .dim classes (homepage and /posts/ card
+   titles) fade back as smoothly as they fade out: .link:link / .link:visited set
+   "transition: color" and outrank .dim's "transition: opacity", so the resting state
+   didn't animate opacity and the title snapped back when the mouse left */
+.dim:link,
+.dim:visited {
+  transition: opacity .15s ease-in, color .15s ease-in;
+}
