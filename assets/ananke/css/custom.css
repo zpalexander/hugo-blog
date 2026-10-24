@@ -694,3 +694,9 @@ main > article > section.mt5 {
     margin-top: 3rem;
   }
 }
+
+/* Homepage card images grow half as much on hover as the theme's grow class (1.05) */
+.home-card a.grow:hover,
+.home-card a.grow:focus {
+  transform: scale(1.025);
+}
