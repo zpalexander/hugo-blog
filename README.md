@@ -1,4 +1,4 @@
-This is a [Hugo](https://gohugo.io/) blog. It is transpiled to static HTML at build time and hosted using [AWS Amplify](https://gohugo.io/hosting-and-deployment/hosting-on-aws-amplify/)
+This is a [Hugo](https://gohugo.io/) blog. It is transpiled to static HTML at build time and hosted on Github Pages. 
 
 ## Adding A Post
 
@@ -16,5 +16,3 @@ Open any Markdown file in `/content/posts` and start editing.
 * featured_image: ""
 * categories: []
 * tags: []
-
-
