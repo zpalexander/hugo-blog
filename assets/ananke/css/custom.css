@@ -10,6 +10,28 @@ main {
   flex: 1 0 auto;
 }
 
+/* Fonts like the old site (loaded in layouts/_partials/hooks/head-end.html): Lora for
+   text, Source Sans Pro for titles, headings and buttons. These replace the theme's
+   font utility classes (avenir on <body>, serif for post text, athelas for titles). */
+.avenir,
+.serif {
+  font-family: Lora, serif;
+}
+
+.athelas,
+.sans-serif,
+h1, h2, h3, h4, h5, h6,
+header .f-subheadline-l,
+.read-more {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+/* Highlighted text, like the old site */
+::selection {
+  background: #e51843;
+  color: #fff;
+}
+
 /* Post pages, laid out like the old site: centered bold sans-serif title and date
    under the banner, centered images, red underlined links. */
 .is-page article > header {
@@ -17,7 +39,6 @@ main {
 }
 
 .is-page article > header h1 {
-  font-family: "avenir next", avenir, sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
@@ -32,6 +53,7 @@ main {
 
 .is-page article > header time {
   display: block;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 1.125rem;
   font-weight: 700;
   letter-spacing: normal;
@@ -43,6 +65,15 @@ main {
 .is-page article > .nested-copy-line-height {
   padding-left: 0;
   padding-right: 0;
+}
+
+/* Article text 18px and near-black like the old site (theme: 20px mid-gray) */
+.is-page article > .nested-copy-line-height {
+  color: #222;
+}
+
+.is-page article > .nested-copy-line-height :is(p, ul, ol, dl) {
+  font-size: 1.125rem;
 }
 
 /* Article headings centered, and a thin single-line divider, like the old site */
@@ -64,6 +95,12 @@ main {
 .is-page article .nested-links a {
   color: #e51843;
   text-decoration: underline;
+}
+
+.is-page article .nested-links a:hover,
+.is-page article .nested-links a:focus {
+  color: #c5153a;
+  text-decoration: none;
 }
 
 /* Code blocks sized relative to the body text like the old site (theme default is
@@ -155,4 +192,32 @@ pre code {
   -webkit-line-clamp: 4;
   line-clamp: 4;
   overflow: hidden;
+}
+
+/* Footer name (theme's site-footer.html): a little smaller than the theme's 20px, sans-serif */
+footer[role="contentinfo"] > div > a {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 1.125rem;
+}
+
+/* Footer name and social icons vertically centered at every width (the theme pads the
+   icons down below 60em, meant for the header nav) */
+footer[role="contentinfo"] > div {
+  align-items: center;
+}
+
+footer[role="contentinfo"] .ananke-social-link {
+  padding-top: 0;
+}
+
+/* Embeds from the hp5 shortcode (layouts/_shortcodes/hp5.html): the full width of the
+   text column up to their 640px size, kept 16:9, and centered like article images */
+.embed-16x9 {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin-left: auto;
+  margin-right: auto;
 }
