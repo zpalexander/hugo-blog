@@ -39,7 +39,7 @@
            recent_posts_number posts per page, at /, /page/2/, /page/3/ ... */}}
       {{ $paginator := .Paginate $section $n_posts }}
 
-      <section class="w-100 mw8">
+      <section class="w-100 mw8 center">
         {{ range $paginator.Pages }}
           {{/* No margin between cards: each card's own 2rem padding sits on both sides of the divider */}}
           <div class="w-100 relative">
