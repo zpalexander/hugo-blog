@@ -44,7 +44,8 @@ enableRobotsTXT = true
 
 [params]
   text_color = ""
-  favicon = ""
+  # the old Ghost site's favicon (16x16), from its zach-ghost theme
+  favicon = "/favicon.ico"
   site_logo = "/images/logo.png"
   description = "Senior software engineer at Amazon. I do all things web."
   # choose a background color from any on this page: http://tachyons.io/docs/themes/skins/ and preface it with "bg-"
