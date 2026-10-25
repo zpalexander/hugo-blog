@@ -219,7 +219,7 @@ pre code {
   border-radius: 9999px;
   color: #d3163e;
   font-family: "Source Sans Pro", sans-serif;
-  text-decoration: underline;
+  text-decoration: none;
   transition: background-color .2s ease-out, color .2s ease-out;
 }
 
@@ -237,6 +237,7 @@ pre code {
    (translateZ(0), hidden backface), which renders the rounded edges roughly; off. */
 .is-page article .nested-links a.br-pill {
   border-color: #e51843;
+  text-decoration: none;
   transform: none;
   backface-visibility: visible;
   transition: background-color .2s ease-out, color .2s ease-out;
@@ -248,7 +249,7 @@ pre code {
   transform: none;
   background-color: #e51843;
   color: #fff;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Cut summaries off at 4 lines with an ellipsis (layouts/summary-with-image.html) */
@@ -716,10 +717,10 @@ main > article > section.mt5 {
   color: #fa518e;
 }
 
-/* About page (/resume/, body .page-resume): the self-portrait as a circle, half the
+/* About page (/about/, body .page-about): the self-portrait as a circle, half the
    text column's width. The photo isn't square (1000x800), so it's cropped to a square
    from the center (object-fit: cover) before rounding. */
-.page-resume article img[src*="/self-portrait."] {
+.page-about article img[src*="/self-portrait."] {
   width: 50%;
   aspect-ratio: 1;
   object-fit: cover;

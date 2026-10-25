@@ -39,7 +39,7 @@ enableRobotsTXT = true
 
 [[menus.main]]
   name = "About"
-  pageRef = "/resume"
+  pageRef = "/about"
   weight = 20
 
 [params]
@@ -60,7 +60,7 @@ enableRobotsTXT = true
   post_content_classes = "serif tj"
 
 # Default banner image for the homepage, list pages and 404 (Ananke 2.19 no longer falls
-# back to a site-wide featured_image param). Single pages (posts, resume) show a banner
+# back to a site-wide featured_image param). Single pages (posts, About) show a banner
 # only if they set their own featured_image, like the old site.
 [[cascade]]
   [cascade.params]
@@ -68,12 +68,12 @@ enableRobotsTXT = true
   [cascade.target]
     kind = "{home,section,taxonomy,term,404}"
 
-# The About page (/resume/) shows no date (the theme's ananke.show_date switch)
+# The About page (/about/) shows no date (the theme's ananke.show_date switch)
 [[cascade]]
   [cascade.params.ananke]
     show_date = false
   [cascade.target]
-    path = "/resume"
+    path = "/about"
 
 [params.ananke]
   # files in assets/ananke/css, bundled into the theme's main.css

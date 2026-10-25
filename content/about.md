@@ -2,6 +2,8 @@
 title: "About"
 date: 2022-01-23T12:57:57-08:00
 draft: false
+aliases:
+    - /resume/
 ---
 
 Hi! My name is Zach and I love making software. I taught myself how to code in college, and now I work as a Senior Software Development Engineer at Amazon. In my day job, I serve as a technical lead on cross-team and cross-organizational projects where I get to build software for millions of Amazon customers.
@@ -10,6 +12,7 @@ Hi! My name is Zach and I love making software. I taught myself how to code in c
 
 I'm a full stack developer with a focus on websites and apps. I believe building software is a craft. This blog documents my learnings and failures as a software developer, as well as the few pieces of wisdom I've picked up along the way.
 
+---
 
 ## Experience
 **[Amazon](https://amazon.com)** - **Seattle, WA** - *10/2016 - Present*
