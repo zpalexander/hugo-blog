@@ -1,3 +1,8 @@
 {{/* Same Google Fonts as the old Ghost site, over HTTPS. Applied in assets/ananke/css/custom.css */}}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+{{/* GoatCounter analytics (no cookies; https://zpalexander.goatcounter.com), production
+     builds only, so local `hugo server` previews aren't counted */}}
+{{ if hugo.IsProduction }}
+<script data-goatcounter="https://zpalexander.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+{{ end }}
