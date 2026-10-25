@@ -1,6 +1,12 @@
+{{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
 {{ $show_date := partials.Include "func/ShowDate.html" . }}
-{{/* post-card: full height of its grid cell, "read more" pinned to the bottom left; styled in assets/ananke/css/custom.css */}}
+{{/* post-card: full height of its grid cell, featured image full width on top, "read more" pinned to the bottom left; styled in assets/ananke/css/custom.css */}}
 <div class="post-card w-100 nested-copy-line-height relative bg-white">
+  {{ with $featured_image }}
+    <a href="{{ $.RelPermalink }}" class="post-card-image db" tabindex="-1" aria-hidden="true">
+      <img src="{{ . }}" alt="">
+    </a>
+  {{ end }}
   <div class="post-card-body pa4 dark-gray overflow-hidden bg-white">
     <h1 class="f3 near-black mt0 mb2">
       <a href="{{ .RelPermalink }}" class="link black dim">

@@ -297,9 +297,23 @@ footer[role="contentinfo"] .ananke-social-link {
   box-sizing: border-box;
 }
 
+.post-card,
 .post-card-body {
   display: flex;
   flex-direction: column;
+}
+
+.post-card-body {
+  flex: 1;
+}
+
+/* Card image: full card width above the title, one 16:9 crop for every image so the
+   titles in a row line up whatever the image's own shape */
+.post-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .post-card-body .summary-tags {
