@@ -739,3 +739,32 @@ main > article > section.mt5 {
 .is-page article .nested-links ul:has(> li > a.br-pill) a.br-pill {
   margin: 0;
 }
+
+/* Header nav on the narrowest phones (up to 22.5em / 360px): with three social icons
+   (LinkedIn, GitHub, RSS) the row is ~10px too wide at 320px, which squeezed the logo
+   and pushed "Posts" against it. The logo never shrinks on its own; at these widths
+   it's 40px (from 48), the links' gaps (Posts→About, About→icons) are 10px (from 16),
+   the icons 28px (from 32, still a comfortable tap target) and 4px apart (from 6). */
+header nav[role="navigation"] > div > a {
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 22.5em) {
+  header nav[role="navigation"] > div > a img {
+    width: 40px;
+    height: auto;
+  }
+
+  header nav[role="navigation"] ul li {
+    padding-right: .625rem;
+  }
+
+  header nav[role="navigation"] .ananke-socials a .icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  header nav[role="navigation"] .ananke-social-link {
+    margin-right: .25rem;
+  }
+}

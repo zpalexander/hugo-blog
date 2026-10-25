@@ -81,10 +81,14 @@ enableRobotsTXT = true
   custom_css = ["syntax-monokai.css", "custom.css"]
 
 [params.ananke.social.follow]
-  networks = ["linkedin", "github"]
+  networks = ["linkedin", "github", "rss"]
 
 [params.ananke.social.linkedin]
   profilelink = "https://www.linkedin.com/in/zpalexander"
 
 [params.ananke.social.github]
   profilelink = "https://github.com/zpalexander"
+
+# The site's own RSS feed (identical to /rss/, the old Ghost feed URL); the theme ships the icon
+[params.ananke.social.rss]
+  profilelink = "/index.xml"
