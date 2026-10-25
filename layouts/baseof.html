@@ -8,13 +8,15 @@
          and the 404 were all titled just the site name. Now every page uses its own
          title ("Posts", the tag name, "Page not found"), with ", page N" on later pages
          of a list. The homepage defines its own title block (layouts/home.html), since
-         only it knows its pagination. */}}
+         only it knows its pagination. Only the kinds whose template paginates (the theme's
+         list.html: /posts/ and each tag) ask for .Paginator: asking on any other page,
+         such as /tags/, makes Hugo generate a duplicate /page/2/ of it. */}}
     <title>{{ block "title" . -}}
       {{- if eq .Kind "404" -}}
-        Page not found | {{ .Site.Title }}
+        {{ lang.Translate "pageNotFound" }} | {{ .Site.Title }}
       {{- else -}}
         {{- $title := .Title -}}
-        {{- if and .IsNode (compare.Gt .Paginator.PageNumber 1) -}}
+        {{- if and (collections.In (collections.Slice "section" "term") .Kind) (compare.Gt .Paginator.PageNumber 1) -}}
           {{- $title = fmt.Printf "%s, page %d" $title .Paginator.PageNumber -}}
         {{- end -}}
         {{ $title }} | {{ .Site.Title }}
@@ -86,12 +88,12 @@
 
   {{- if .IsSection -}}{{- $body_classes = $body_classes | append "is-section" -}}{{- end -}}
 
-  <body class="{{ delimit $body_classes " " }}">
+  <body class="{{ delimit ($body_classes | collections.Uniq) " " }}">
     {{- partials.Include "hook.html" (dict "hook" "body-start" "context" .) -}}
     {{- partials.Include "hook.html" (dict "hook" "header-before" "context" .) -}}
     {{ block "header" . }}{{ partials.Include "site-header.html" .}}{{ end }}
     {{- partials.Include "hook.html" (dict "hook" "header-after" "context" .) -}}
-    <main class="pb7" role="main">
+    <main class="pb5" role="main">
       {{- partials.Include "hook.html" (dict "hook" "main-before" "context" .) -}}
       {{ block "main" . }}{{ end }}
       {{- partials.Include "hook.html" (dict "hook" "main-after" "context" .) -}}

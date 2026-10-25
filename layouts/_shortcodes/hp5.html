@@ -1,9 +1,11 @@
 {{- /* embed-16x9: full width up to 640px, centered; styled in assets/ananke/css/custom.css */ -}}
 {{- /* title (for screen readers): an optional second argument, else named from the URL */ -}}
+{{- /* allow: only what video and map embeds use (encrypted-media for protected video,
+       picture-in-picture); no camera, microphone or location for third-party pages */ -}}
 {{- $src := .Get 0 -}}
 {{- $title := .Get 1 -}}
 {{- if not $title -}}
-  {{- if strings.Contains $src "youtube" -}}
+  {{- if or (strings.Contains $src "youtube") (strings.Contains $src "youtu.be") -}}
     {{- $title = "YouTube video" -}}
   {{- else if strings.Contains $src "google.com/maps" -}}
     {{- $title = "Google map" -}}
@@ -11,4 +13,4 @@
     {{- $title = fmt.Printf "Embedded content from %s" (urls.Parse $src).Host -}}
   {{- end -}}
 {{- end -}}
-<iframe class="embed-16x9" src="{{ $src }}" title="{{ $title }}" width="640" height="360" frameborder="0" allowfullscreen="allowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *"></iframe>
+<iframe class="embed-16x9" src="{{ $src }}" title="{{ $title }}" width="640" height="360" allowfullscreen allow="encrypted-media; picture-in-picture"></iframe>

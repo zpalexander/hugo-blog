@@ -1,0 +1,10 @@
+{{/* Outlined button link with a chevron that slides on hover, like the old Ghost site's
+     "Older Posts" button: the summary cards' "Read More" and the homepage's Newer/Older
+     Posts. Styled in assets/ananke/css/custom.css (.chevron-button).
+     Pass (dict "href" <url> "label" <text>), plus "back" true for a chevron pointing
+     back, before the label, and optionally "class" for extra classes. */}}
+{{- $points := compare.Conditional .back "11,2 5,8 11,14" "5,2 11,8 5,14" -}}
+{{- $chevron := fmt.Printf `<svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="%s" fill="none" stroke="currentColor" stroke-width="3"/></svg>` $points | safe.HTML -}}
+<a href="{{ .href }}" class="chevron-button{{ if .back }} chevron-button-back{{ end }}{{ with .class }} {{ . }}{{ end }}">
+  {{- if .back }}{{ $chevron }}{{ end }}{{ .label }}{{ if not .back }}{{ $chevron }}{{ end -}}
+</a>

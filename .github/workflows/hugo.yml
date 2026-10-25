@@ -2,6 +2,7 @@
 # Based on Hugo's sample Pages workflow, without its Dart Sass, Go and Node steps (not
 # needed), with Hugo installed from its own release and checksum-verified, and with
 # every action pinned to a full commit SHA (Dependabot keeps them current).
+# Pull requests (such as Dependabot's) are built and checked but not deployed.
 
 name: Deploy Hugo site to Pages
 
@@ -9,17 +10,18 @@ on:
   push:
     branches:
       - master
+  pull_request:
   workflow_dispatch:
 
+# Each job asks for what it needs on top of this
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
-# One deployment at a time; never cancel one that's running
+# One deployment at a time; never cancel one that's running. A pull request's build
+# only replaces an older build of the same pull request.
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || 'pages' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 defaults:
   run:
@@ -28,10 +30,13 @@ defaults:
 jobs:
   build:
     runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      # configure-pages reads the Pages settings (the site's URL)
+      pages: read
     env:
       # The version the site is built and tested with locally
       HUGO_VERSION: 0.168.0
-      HUGO_ENV: production
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -52,16 +57,19 @@ jobs:
           echo "${RUNNER_TEMP}/hugo" >> "${GITHUB_PATH}"
 
       - name: Configure Pages
+        if: github.event_name != 'pull_request'
         id: pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
 
+      # `hugo` builds in its production environment by default (indexable pages,
+      # analytics on). Deploys use whatever domain Pages is set to (github.io or the
+      # custom domain); pull request builds use config.toml's baseURL.
       - name: Build
         env:
-          # Whatever domain Pages is set to (github.io or the custom domain)
           BASE_URL: ${{ steps.pages.outputs.base_url }}
         run: |
           hugo version
-          hugo --gc --minify --baseURL "${BASE_URL}/"
+          hugo --gc --minify ${BASE_URL:+--baseURL "${BASE_URL}/"}
 
       - name: Fail if any page would be hidden from search engines
         run: |
@@ -71,13 +79,18 @@ jobs:
           fi
 
       - name: Upload artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: ./public
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

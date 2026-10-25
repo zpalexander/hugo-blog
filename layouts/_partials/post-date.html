@@ -1,0 +1,8 @@
+{{/* A page's date as a <time>, in the site's date_format, if the page shows its date
+     (the theme's ShowDate). Used on post pages and both summary cards.
+     Pass (dict "page" <page> "class" "<classes>"). */}}
+{{- if partials.Include "func/ShowDate.html" .page -}}
+  <time class="{{ .class }}" datetime="{{ .page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
+    {{- .page.Date | time.Format (site.Params.date_format | compare.Default "January 2, 2006") -}}
+  </time>
+{{- end -}}

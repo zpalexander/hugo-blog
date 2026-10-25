@@ -1,0 +1,18 @@
+{{/* Copied from Ananke v2.19.1 (themes/ananke/layouts/_partials/tags.html): the tag pills
+     at the bottom of posts. Changes: the same .tag-pill as the summary cards' tags
+     (summary-tags.html), a size larger, in a wrapping row with a fixed gap (the theme
+     relied on the whitespace between list items, which the minified production build
+     removes). The list is rendered even without tags, like the theme's, and only becomes
+     a flex row when it has some: an empty block list's margins collapse into one, which
+     is part of the space at the bottom of pages without tags (About). Styled in
+     assets/ananke/css/custom.css */}}
+{{ $tags := .GetTerms "tags" }}
+<ul class="post-tags pa0{{ with $tags }} flex flex-wrap{{ end }}">
+  {{ range $tags }}
+   <li class="list">
+     <a href="{{ .RelPermalink }}" class="tag-pill dib f5 ph3 pv2">
+       {{- .LinkTitle -}}
+     </a>
+   </li>
+  {{ end }}
+</ul>

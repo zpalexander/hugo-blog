@@ -1,8 +1,15 @@
-{{/* Same Google Fonts as the old Ghost site, over HTTPS. Applied in assets/ananke/css/custom.css */}}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
-{{/* GoatCounter analytics (no cookies; https://zpalexander.goatcounter.com), production
-     builds only, so local `hugo server` previews aren't counted */}}
+{{/* Same Google Fonts as the old Ghost site, over HTTPS, in one request with only the
+     weights the site uses: Source Sans Pro 200 (banner name and subtitle), 400, 700 and
+     900 (bold inside bold text); Lora 400 and 700, upright and italic. display=swap
+     shows text in the fallback font while the fonts load instead of hiding it. Applied
+     in assets/ananke/css/custom.css */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:wght@200;400;700;900&display=swap">
+{{/* GoatCounter analytics (no cookies), production builds only, so local `hugo server`
+     previews aren't counted. The site code is params.goatcounter in config.toml. */}}
 {{ if hugo.IsProduction }}
-<script data-goatcounter="https://zpalexander.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  {{ with site.Params.goatcounter }}
+    <script data-goatcounter="https://{{ . }}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  {{ end }}
 {{ end }}

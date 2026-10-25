@@ -33,19 +33,13 @@
     <div class="{{ $cover_dimming_class }}">
       {{ partials.Include "site-navigation.html" . }}
       <div class="{{ $header_section_class }}">
-        {{ if not .Params.omit_header_text }}
-          {{/* Same size as the homepage title (f-subheadline-l) instead of the theme's f1-l */}}
-          {{/* Hugo hard-codes the 404 page's title as "404 Page not found"; show it with a colon */}}
-          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ if eq .Kind "404" }}404: Page not found{{ else }}{{ .Title | compare.Default .Site.Title }}{{ end }}</div>
-          {{ with .Params.description  }}
-            <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
-              {{ . }}
-            </div>
-          {{ end }}
-        {{ else }}
-          {{/* Posts (omit_header_text) show the site name in the banner instead of their title,
-               centered at every width (the section class only centers from 60em, tc-l) */}}
-          <div class="tc f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Site.Title }}</div>
+        {{/* Same size as the homepage title (f-subheadline-l) instead of the theme's f1-l */}}
+        {{/* Hugo hard-codes the 404 page's title as "404 Page not found"; show it with a colon */}}
+        <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ if eq .Kind "404" }}404: {{ lang.Translate "pageNotFound" }}{{ else }}{{ .Title | compare.Default .Site.Title }}{{ end }}</div>
+        {{ with .Params.description  }}
+          <div class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
+            {{ . }}
+          </div>
         {{ end }}
       </div>
     </div>
@@ -54,12 +48,6 @@
   <header>
     <div class="{{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
       {{ partials.Include "site-navigation.html" . }}
-      {{/* Posts without a banner image show the site name under the nav */}}
-      {{ if .Params.omit_header_text }}
-        <div class="tc pb4 ph3 ph4-ns">
-          <div class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">{{ .Site.Title }}</div>
-        </div>
-      {{ end }}
     </div>
   </header>
 {{ end }}

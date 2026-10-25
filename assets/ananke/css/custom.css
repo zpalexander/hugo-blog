@@ -1,145 +1,224 @@
+/* Site styles on top of the Ananke theme (Tachyons). Bundled after the theme's CSS and
+   syntax-monokai.css (config.toml, params.ananke.custom_css), so rules here win ties.
+   Layout that Tachyons classes can express lives in the templates (layouts/); this file
+   holds what they can't.
+
+   Breakpoints (Tachyons'): below 30em phones (-ns starts at 30em), 30em to 60em tablets
+   (-m), from 60em desktop (-l). Custom properties can't be used in media queries, so the
+   breakpoints are written out; max-width queries use 29.99em / 59.99em so they never
+   overlap the theme's min-width ones. 22.5em (360px, inclusive) is the narrowest-phones
+   squeeze for the header nav.
+
+   Sections: tokens, base, header (nav, banner), shared card parts, homepage, list pages,
+   post pages, About, footer, code, reduced motion. */
+
+/* ---------- Tokens ---------- */
+
+:root {
+  --font-serif: Lora, serif;                 /* body text, like the old site */
+  --font-sans: "Source Sans Pro", sans-serif; /* titles, headings, header, buttons, pills */
+
+  /* Red: the accent for fills, borders, the nav underline and selection; a touch darker
+     for red text, so it meets 4.5:1 on every background it sits on: 4.83:1 on the page,
+     4.58:1 on the "Up Next..." box, 5.31:1 on white (the accent: 4.20 / 3.98 / 4.62) */
+  --color-accent: #e51843;
+  --color-accent-text: #d3163e;
+  --color-accent-text-hover: #a3112f;
+  --color-on-accent: #fff;
+  --color-text: #222;  /* article and summary text, near-black like the old site */
+  --color-ink: #000;   /* button outlines and labels */
+  --color-rule: #ddd;  /* article dividers */
+
+  /* Side padding of the page content below 60em (Tachyons ph4): the nav, the homepage
+     post list from 30em, post pages. Used where a width must subtract it. */
+  --gutter: 2rem;
+  /* The vertical rhythm around the content: banner to the first post or title, last
+     homepage card to the Newer/Older buttons to the footer */
+  --section-gap: 2.5rem;
+  /* Homepage cards' top and bottom padding (pv4), part of the gaps above and below them */
+  --home-card-padding-y: 2rem;
+}
+
+@media screen and (min-width: 30em) {
+  :root {
+    --section-gap: 3rem;
+  }
+}
+
+/* ---------- Base ---------- */
+
 /* Keep the footer at the bottom of the window on short pages (e.g. 404):
    the page is at least the window's height and <main> takes the spare space. */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  font-family: var(--font-serif);
 }
 
 main {
   flex: 1 0 auto;
 }
 
-/* Fonts like the old site (loaded in layouts/_partials/hooks/head-end.html): Lora for
-   text, Source Sans Pro for titles, headings and buttons. These replace the theme's
-   font utility classes (avenir on <body>, serif for post text, athelas for titles). */
-.avenir,
-.serif {
-  font-family: Lora, serif;
-}
-
-.athelas,
-.sans-serif,
+/* Fonts loaded in layouts/_partials/hooks/head-end.html */
 h1, h2, h3, h4, h5, h6,
-header .f-subheadline-l,
-.read-more {
-  font-family: "Source Sans Pro", sans-serif;
+header {
+  font-family: var(--font-sans);
 }
 
 /* Highlighted text, like the old site */
 ::selection {
-  background: #e51843;
-  color: #fff;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
-/* Post pages, laid out like the old site: centered bold sans-serif title and date
-   under the banner, centered images, red underlined links. */
-.is-page article > header {
-  text-align: center;
+/* Links with both of the theme's .link and .dim classes (homepage and /posts/ card
+   titles) fade back as smoothly as they fade out: .link:link / .link:visited set
+   "transition: color" and outrank .dim's "transition: opacity", so the resting state
+   didn't animate opacity and the title snapped back when the mouse left */
+.dim:link,
+.dim:visited {
+  transition: opacity .15s ease-in, color .15s ease-in;
 }
 
-.is-page article > header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #000;
+/* Social icons (header and footer) 6px apart instead of the theme's 4px (mr1), for
+   easier tapping, and not padded down (the theme's pt3 below 60em) */
+.ananke-social-link {
+  padding-top: 0;
+  margin-right: .375rem;
 }
 
-@media screen and (min-width: 60em) {
-  .is-page article > header h1 {
-    font-size: 4.25rem;
+/* ---------- Header: nav (layouts/_partials/site-navigation.html) ---------- */
+
+/* Social icons centered in their links (inline, they sit on a baseline, about 2px
+   high), so the link text and icons share one center line */
+.site-nav .ananke-socials,
+.site-nav .ananke-social-link,
+.site-nav .ananke-social-link .icon {
+  display: flex;
+  align-items: center;
+}
+
+.nav-current {
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: .35em;
+}
+
+/* Below 60em the last icon ends exactly at the nav's 32px edge, the content's edge (no
+   trailing 6px icon gap) */
+@media screen and (max-width: 59.99em) {
+  .site-nav .ananke-social-link:last-child {
+    margin-right: 0;
   }
 }
 
-.is-page article > header time {
-  display: block;
-  font-family: "Source Sans Pro", sans-serif;
+/* Narrowest phones (up to 22.5em / 360px): with three social icons (LinkedIn, GitHub,
+   RSS) the row is ~10px too wide at 320px, which squeezed the logo and pushed "Posts"
+   against it. The logo never shrinks (flex-shrink-0); at these widths it's 40px (from
+   48), the links' gaps (Posts→About, About→icons) are 10px (from 16), the icons 28px
+   (from 32, still a comfortable tap target) and 4px apart (from 6). */
+@media screen and (max-width: 22.5em) {
+  .site-nav-logo img {
+    width: 40px;
+    height: auto;
+  }
+
+  .site-nav-item {
+    padding-right: .625rem;
+  }
+
+  .site-nav .ananke-socials a .icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .site-nav .ananke-social-link {
+    margin-right: .25rem;
+  }
+}
+
+/* ---------- Header: banner (layouts/_partials/site-header.html) ---------- */
+
+/* Same height at every width (no jump at 60em); the nav is overlaid on its top */
+.site-banner {
+  min-height: 22rem;
+}
+
+/* Sized in container units (cqw) of the banner, so a desktop scrollbar doesn't count */
+.home-banner {
+  container-type: inline-size;
+}
+
+/* Homepage name on phones, below 30em: as wide as the post column below it (the banner
+   minus the gutter on each side), so it wraps to two lines and the longer line spans
+   88% of the column. 0.2235 = 0.88 / 3.946, where 3.946em is the width of "Alexander",
+   the name's longer word, in Source Sans Pro 200: change the name or its font and this
+   factor must be recomputed. Capped at the 30em+ size (5rem, f-subheadline-ns), so
+   wider phones don't push the name into the nav and there's no size jump at 30em; the
+   cap takes over from about 422px wide. */
+@media screen and (max-width: 29.99em) {
+  .home-banner h1 {
+    max-width: calc(100cqw - 2 * var(--gutter));
+    margin-left: auto;
+    margin-right: auto;
+    font-size: min(calc((100cqw - 2 * var(--gutter)) * .2235), 5rem);
+  }
+}
+
+/* Tag names can be any length, so the tag banner title is a fixed size (f1 /
+   f-subheadline-ns) and a long word wraps instead of overflowing */
+.tag-banner h1 {
+  overflow-wrap: anywhere;
+}
+
+/* Tag icon before the tag pages' banner title: about cap height, in the title's color,
+   kept on the same line as the title's first letter (wrapped together in
+   .tag-icon-with-first-letter) */
+.tag-icon-with-first-letter {
+  white-space: nowrap;
+}
+
+.tag-icon {
+  width: .6em;
+  height: .6em;
+  margin-right: .2em;
+  vertical-align: -.02em;
+}
+
+/* Subtitle a step larger than the theme's f5 / f3-l (16px / 24px), so the thin weight
+   stays legible */
+.site-banner-subtitle {
   font-size: 1.125rem;
-  font-weight: 700;
-  letter-spacing: normal;
-  color: #222;
 }
 
-/* The theme pads the text column on the right for its "Related" sidebar, which posts no
-   longer have; drop it so the text is centered under the title */
-.is-page article > .nested-copy-line-height {
-  padding-left: 0;
-  padding-right: 0;
+@media screen and (min-width: 60em) {
+  .site-banner-subtitle {
+    font-size: 1.625rem;
+  }
 }
 
-/* Article text 18px and near-black like the old site (theme: 20px mid-gray) */
-.is-page article > .nested-copy-line-height {
-  color: #222;
-}
+/* ---------- Shared card parts ---------- */
 
-.is-page article > .nested-copy-line-height :is(p, ul, ol, dl) {
-  font-size: 1.125rem;
-}
-
-/* Article headings centered, and a thin single-line divider, like the old site */
-.is-page article > .nested-copy-line-height :is(h1, h2, h3, h4, h5, h6) {
-  text-align: center;
-}
-
-.is-page article > .nested-copy-line-height hr {
-  border: 0;
-  border-top: 1px solid #ddd;
-}
-
-.is-page article .nested-copy-line-height img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Red text uses #d3163e, a touch darker than the accent #e51843 (fills, borders, the nav
-   underline, selection), so it meets 4.5:1 on every background it sits on: 4.83:1 on
-   the page, 4.58:1 on the "Up Next..." box, 5.31:1 on white (#e51843: 4.20 / 3.98 / 4.62) */
-.is-page article .nested-links a {
-  color: #d3163e;
-  text-decoration: underline;
-}
-
-.is-page article .nested-links a:hover,
-.is-page article .nested-links a:focus {
-  color: #a3112f;
-  text-decoration: none;
-}
-
-/* Code blocks sized relative to the body text like the old site (theme default is
-   body-size text, double line spacing and 1.5em padding) */
-pre {
-  font-size: .875em;
-}
-
-pre code {
-  line-height: 1.5;
-  padding: .5em;
-}
-
-/* "read more" button, styled after the old Ghost site's "Older Posts" button
-   (black outline, bold label, chevron that slides on hover). Sized to the
-   small meta text around it (date, byline), the same on every page. */
-.read-more {
+/* Chevron button (layouts/_partials/chevron-button.html): "Read More" on the cards and
+   the homepage's Newer/Older Posts, styled after the old Ghost site's "Older Posts"
+   button (black outline, bold label, chevron that slides on hover). Sized to the small
+   meta text around it (date, byline). */
+.chevron-button {
   display: inline-block;
-  margin-top: .75rem;
   padding: .25em 1.25em;
-  border: 2px solid #000;
+  border: 2px solid var(--color-ink);
   border-radius: 3px;
-  color: #000;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
   font-size: .875rem;
   font-weight: 700;
   line-height: 1.25;
   text-decoration: none;
 }
 
-.read-more:hover,
-.read-more:focus {
-  color: #000;
-  text-decoration: none;
-}
-
-.read-more svg {
+.chevron-button svg {
   width: .75em;
   height: .75em;
   margin-left: .25em;
@@ -147,60 +226,43 @@ pre code {
   transition: transform .3s;
 }
 
-.read-more:hover svg,
-.read-more:focus svg {
+.chevron-button:hover svg,
+.chevron-button:focus svg {
   transform: translateX(.3125em);
 }
 
-/* Homepage Newer/Older Posts buttons (layouts/home.html), centered side by side like the old site,
-   and vertically centered between the last card's divider and the footer: the same space
-   above and below, 2.5rem on phones and 3rem from 30em. On the homepage the space below is
-   all <main>'s bottom padding (the post list's own bottom padding is removed). */
-.home-pager {
-  margin-top: 2.5rem;
-}
-
-/* The same space between the banner and the first post's content (image or title): the
-   post list's top padding plus the first card's 2rem (pv4) */
-.is-home .home-posts {
-  padding-top: .5rem;
-  padding-bottom: 0;
-}
-
-.is-home main[role="main"] {
-  padding-bottom: 2.5rem;
-}
-
-@media screen and (min-width: 30em) {
-  .home-pager {
-    margin-top: 3rem;
-  }
-
-  .is-home main[role="main"] {
-    padding-bottom: 3rem;
-  }
-
-  .is-home .home-posts {
-    padding-top: 1rem;
-  }
-}
-
-.home-pager .read-more {
-  margin: 0 .25rem;
-}
-
-.read-more.newer-posts svg {
+.chevron-button-back svg {
   margin-left: 0;
   margin-right: .25em;
 }
 
-.read-more.newer-posts:hover svg,
-.read-more.newer-posts:focus svg {
+.chevron-button-back:hover svg,
+.chevron-button-back:focus svg {
   transform: translateX(-.3125em);
 }
 
-/* "Tags" and small tag pills under each summary title (layouts/_partials/summary-tags.html),
-   a smaller version of the pills at the bottom of posts (theme's tags.html + red links) */
+/* Tag pills: the small ones under each summary title (layouts/_partials/summary-tags.html)
+   and the larger ones at the bottom of posts (layouts/_partials/tags.html). On hover
+   and focus the pill fills with the accent red and the text turns white, animated both
+   ways. The border stays the accent (not currentColor, which turns white on hover and
+   leaves a light ring around the fill). a.tag-pill ties the theme's .nested-links a
+   (post pills sit in the post body) and wins by coming later. */
+a.tag-pill {
+  border: 1px solid var(--color-accent);
+  border-radius: 9999px;
+  color: var(--color-accent-text);
+  font-family: var(--font-sans);
+  text-decoration: none;
+  transition: background-color .2s ease-out, color .2s ease-out;
+}
+
+a.tag-pill:hover,
+a.tag-pill:focus {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  transition: background-color .2s ease-out, color .2s ease-out;
+}
+
 .summary-tags {
   display: flex;
   flex-wrap: wrap;
@@ -211,49 +273,64 @@ pre code {
   line-height: 1.5;
 }
 
+.summary-tags-label {
+  margin-right: .25rem;
+}
+
 .summary-tags .tag-pill {
   display: inline-block;
-  margin: 0;
   padding: .125rem .625rem;
-  border: 1px solid #e51843;
-  border-radius: 9999px;
-  color: #d3163e;
-  font-family: "Source Sans Pro", sans-serif;
-  text-decoration: none;
-  transition: background-color .2s ease-out, color .2s ease-out;
 }
 
-/* Hover/focus: the pill fills with the accent red and the text turns white, in both
-   directions; same for the tag pills at the bottom of posts (theme's tags.html, whose
-   "grow" scale animation is turned off) */
-.summary-tags .tag-pill:hover,
-.summary-tags .tag-pill:focus {
-  background-color: #e51843;
-  color: #fff;
-}
-
-/* The border stays red (not currentColor, which turns white on hover and leaves a light
-   ring around the fill). The theme's grow class also puts the pill on its own GPU layer
-   (translateZ(0), hidden backface), which renders the rounded edges roughly; off. */
-.is-page article .nested-links a.br-pill {
-  border-color: #e51843;
-  text-decoration: none;
-  transform: none;
-  backface-visibility: visible;
-  transition: background-color .2s ease-out, color .2s ease-out;
-}
-
-.is-page article .nested-links a.br-pill:hover,
-.is-page article .nested-links a.br-pill:focus,
-.is-page article .nested-links a.br-pill:active {
-  transform: none;
-  background-color: #e51843;
-  color: #fff;
-  text-decoration: none;
-}
-
-/* Cut summaries off at 4 lines with an ellipsis (layouts/summary-with-image.html) */
+/* Summary preview text the same near-black as article text (theme: dark-gray #333) */
 .summary-text {
+  color: var(--color-text);
+}
+
+/* Below 60em, where the homepage cards stack: the old site's phone sizes */
+@media screen and (max-width: 59.99em) {
+  .card-title {
+    font-size: 1.75rem;
+  }
+
+  .card-date,
+  .summary-tags,
+  .chevron-button {
+    font-size: 1rem;
+  }
+}
+
+/* ---------- Homepage (layouts/home.html, layouts/summary-with-image.html) ---------- */
+
+/* The section gap between the banner and the first post's content (image or title):
+   the post list's top padding plus the first card's own top padding */
+.home-posts {
+  padding-top: calc(var(--section-gap) - var(--home-card-padding-y));
+}
+
+/* Newer/Older Posts buttons centered side by side like the old site, and vertically
+   centered between the last card's divider and the footer: the section gap above and
+   below (the space below is all <main>'s bottom padding) */
+.home-pager {
+  margin-top: var(--section-gap);
+}
+
+.is-home main {
+  padding-bottom: var(--section-gap);
+}
+
+/* Homepage cards: one spacing scale. 2rem at the card's top and bottom (its pv4
+   padding; there's no margin between cards), 1.5rem from the stacked image to the
+   title, .25rem from the title to the date below it (mt1), 1rem between the other
+   blocks. */
+.home-card .summary-tags,
+.home-card .summary-text,
+.home-card .chevron-button {
+  margin-top: 1rem;
+}
+
+/* Previews cut off at 4 lines with an ellipsis (3 from 60em, below) */
+.home-card .summary-text {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
@@ -261,24 +338,175 @@ pre code {
   overflow: hidden;
 }
 
-/* Footer name (theme's site-footer.html): a little smaller than the theme's 20px, sans-serif */
-footer[role="contentinfo"] > div > a {
-  font-family: "Source Sans Pro", sans-serif;
+/* Card images grow half as much on hover as the theme's grow class (1.05) */
+.home-card .grow:hover,
+.home-card .grow:focus {
+  transform: scale(1.025);
+}
+
+/* Below 60em the image is stacked above the text at its natural shape; the preview text,
+   which the old site didn't have, at the article text size */
+@media screen and (max-width: 59.99em) {
+  .home-card-image {
+    margin-bottom: 1.5rem;
+  }
+
+  .home-card .summary-text {
+    font-size: 1.125rem;
+  }
+}
+
+/* From 60em the image is beside the text and exactly as tall as it, whatever the title
+   length or tag count, cropped to fill (object-fit: cover, centered). It is positioned
+   out of flow so its own shape never sets the row height; the text does. The image
+   column is 40% of the card (the theme's w-40-l), 2rem from the text, kept between
+   16rem, so it never becomes a sliver, and 357px, where a card with a one-line title
+   (223px of text) shows the image at about 16:10. Narrow desktop windows get a
+   narrower image instead of a cramped text column. The text column takes the rest. */
+@media screen and (min-width: 60em) {
+  .home-card-row {
+    gap: 2rem;
+  }
+
+  .home-card-image {
+    position: relative;
+    flex: 0 0 clamp(16rem, 40%, 357px);
+  }
+
+  .home-card-image > a {
+    position: absolute;
+    inset: 0;
+  }
+
+  .home-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .home-card-text {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+
+  .home-card .summary-text {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}
+
+/* ---------- List pages: /posts/ and tag pages (layouts/list.html, layouts/summary.html) ---------- */
+
+/* The first card as far below the banner as the homepage's first post */
+.post-grid {
+  margin-top: var(--section-gap);
+}
+
+/* Grid cards: each fills its grid cell, the image (if any) full width on top, and the
+   "read more" button sits at the bottom left, whatever the summary length */
+.grid-card,
+.grid-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-card {
+  height: 100%;
+}
+
+.grid-card-body {
+  flex: 1;
+}
+
+/* One 16:9 crop for every image, so the titles in a row line up whatever the image's
+   own shape */
+.grid-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.grid-card .summary-tags {
+  margin: .5rem 0 1rem;
+}
+
+.grid-card .summary-text {
+  margin-bottom: .75rem;
+}
+
+.grid-card .chevron-button {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* ---------- Post pages and About (layouts/single.html) ---------- */
+
+/* Title as far below the banner as the homepage's first post */
+.post-title {
+  margin-top: var(--section-gap);
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+@media screen and (min-width: 60em) {
+  .post-title {
+    font-size: 4.25rem;
+  }
+}
+
+.post-date {
+  font-size: 1.125rem;
+  color: var(--color-text);
+}
+
+/* Article text 18px and near-black like the old site (theme: 20px mid-gray) */
+.post-body {
+  color: var(--color-text);
+}
+
+.post-body :is(p, ul, ol, dl) {
   font-size: 1.125rem;
 }
 
-/* Footer name and social icons vertically centered at every width (the theme pads the
-   icons down below 60em, meant for the header nav) */
-footer[role="contentinfo"] > div {
-  align-items: center;
+/* Article headings centered, centered images, and a thin single-line divider, like the
+   old site */
+.post-body :is(h1, h2, h3, h4, h5, h6) {
+  text-align: center;
 }
 
-footer[role="contentinfo"] .ananke-social-link {
-  padding-top: 0;
+.post-body img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.post-body hr {
+  border: 0;
+  border-top: 1px solid var(--color-rule);
+}
+
+/* Red underlined links in the article and its "Up Next..." box (not the tag pills) */
+.is-page .nested-links a:not(.tag-pill) {
+  color: var(--color-accent-text);
+  text-decoration: underline;
+}
+
+.is-page .nested-links a:not(.tag-pill):hover,
+.is-page .nested-links a:not(.tag-pill):focus {
+  color: var(--color-accent-text-hover);
+  text-decoration: none;
+}
+
+/* Tag pills at the bottom of posts: a wrapping row with a fixed gap */
+.post-tags {
+  gap: .5rem;
 }
 
 /* Embeds from the hp5 shortcode (layouts/_shortcodes/hp5.html): the full width of the
-   text column up to their 640px size, kept 16:9, and centered like article images */
+   text column up to their 640px size, kept 16:9, and centered like article images,
+   without the browser's iframe border */
 .embed-16x9 {
   display: block;
   width: 100%;
@@ -287,214 +515,15 @@ footer[role="contentinfo"] .ananke-social-link {
   aspect-ratio: 16 / 9;
   margin-left: auto;
   margin-right: auto;
-}
-
-/* /posts/ and tag-page cards (layouts/summary.html): each card fills its grid cell and
-   the "read more" button sits at the bottom left, whatever the summary length */
-.post-card,
-.post-card-body {
-  height: 100%;
-  box-sizing: border-box;
-}
-
-.post-card,
-.post-card-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.post-card-body {
-  flex: 1;
-}
-
-/* Card image: full card width above the title, one 16:9 crop for every image so the
-   titles in a row line up whatever the image's own shape */
-.post-card-image img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.post-card-body .summary-tags {
-  margin: .5rem 0 1rem;
-}
-
-.post-card-body .read-more {
-  align-self: flex-start;
-  margin-top: auto;
-}
-
-.post-card-body .nested-links {
-  margin-bottom: .75rem;
-}
-
-/* Header nav (theme's site-navigation.html): logo left, social icons right at every width
-   (the theme only lays it out as a row from 60em and stacks the icons under the logo) */
-header nav[role="navigation"] > div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-header nav[role="navigation"] .ananke-social-link {
-  padding-top: 0;
-}
-
-/* Summary preview text the same near-black as article text (theme: dark-gray #333) */
-.summary-text,
-.post-card-body .nested-links {
-  color: #222;
-}
-
-/* Homepage below 60em (where the cards stack): the old site's phone sizes; the preview
-   text, which the old site didn't have, at the article text size */
-@media screen and (max-width: 59.99em) {
-  .summary-text {
-    font-size: 1.125rem;
-  }
-
-  article time.f6 {
-    font-size: 1rem;
-  }
-
-  article h1.f3 {
-    font-size: 1.75rem;
-  }
-
-  .summary-tags,
-  .read-more {
-    font-size: 1rem;
-  }
-}
-
-/* Homepage banner name on phones, below 30em: as wide as the post column below it
-   (100% - 64px, layouts/home.html padding), so it wraps to "Zach" / "Alexander", and
-   "Alexander" spans 88% of the column. Sized in container units of the banner (so a desktop
-   scrollbar doesn't count). "Alexander" in Source Sans Pro 200 is 3.946em wide;
-   0.2235 = 0.88 / 3.946. From 30em it's
-   a fixed 5rem (80px), the theme's desktop size (f-subheadline-l), instead of the
-   theme's 36px up to 60em. */
-@media screen and (min-width: 30em) {
-  .home-banner h1 {
-    font-size: 5rem;
-  }
-}
-
-.home-banner {
-  container-type: inline-size;
-}
-
-@media screen and (max-width: 29.99em) {
-  .home-banner h1 {
-    max-width: calc(100cqw - 64px);
-    margin-left: auto;
-    margin-right: auto;
-    /* capped at the 30em+ size (5rem), so wider phones don't push the name into the nav
-       and there's no size jump at 30em; the cap takes over from about 422px wide */
-    font-size: min(calc((100cqw - 64px) * .2235), 5rem);
-  }
-}
-
-/* When the name wraps to two lines, keep them close (theme lh-title: 1.25). 1.0 is the
-   tightest that keeps any name's descenders (g, j, p, q, y) clear of the next line's
-   ascenders. */
-.home-banner h1 {
-  line-height: 1;
-}
-
-/* Header nav (logo, social icons) on phones, below 30em, on every page: 32px from each
-   edge (100% - 64px), the homepage post column's edges and the post text's (below), so
-   the header is identical on every page. From 30em the theme's nav spacing applies. */
-@media screen and (max-width: 29.99em) {
-  header nav[role="navigation"] {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  header nav[role="navigation"] > div {
-    width: calc(100% - 64px);
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  header nav[role="navigation"] .ananke-social-link:last-child {
-    margin-right: 0;
-  }
-}
-
-/* Social icons (header and footer) 6px apart instead of the theme's 4px (mr1), for easier tapping */
-.ananke-social-link {
-  margin-right: .375rem;
-}
-
-/* Less space under the page content: 4rem instead of the theme's pb7 (16rem) on <main> (baseof.html) */
-main[role="main"] {
-  padding-bottom: 4rem;
-}
-
-.summary-tags-label {
-  margin-right: .25rem;
-}
-
-/* Homepage cards (layouts/summary-with-image.html): one spacing scale. 2rem at the card's
-   top and bottom (its pv4 padding; layouts/home.html has no margin between cards), 1.5rem
-   from the stacked image to the title, .25rem from the title to the date below it, 1rem
-   between the other blocks. Replaces the theme's title margin, image mb4 and read-more
-   margin. */
-.home-card h1 {
-  margin: 0;
-}
-
-.home-card time {
-  margin-top: .25rem;
-}
-
-.home-card .summary-tags,
-.home-card .summary-text,
-.home-card .read-more {
-  margin-top: 1rem;
-}
-
-@media screen and (max-width: 59.99em) {
-  .home-card .flex > div:first-child:not(.blah) {
-    margin-bottom: 1.5rem;
-  }
-}
-
-/* No inline baseline gap under the card image, so the 1.5rem above the date is exact */
-.home-card img {
-  display: block;
-}
-
-/* Post pages (single pages, .is-page) at phone and tablet widths, below 60em: the article
-   uses the nav's 32px side padding and full width instead of its own ph3 and 48rem cap
-   (mw7), so the text lines up with the logo and the last icon. From 60em the theme's
-   centered 48rem column applies. */
-@media screen and (max-width: 59.99em) {
-  .is-page article.mw7 {
-    max-width: none;
-  }
-
-  /* Every header below 60em: the last icon ends exactly at the nav's 32px edge, the
-     content's edge (no trailing 6px icon gap) */
-  header nav[role="navigation"] .ananke-social-link:last-child {
-    margin-right: 0;
-  }
-}
-
-@media screen and (max-width: 59.99em) {
-  .is-page article.mw7 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+  border: 0;
 }
 
 /* Content never widens the page, whatever a post contains. Long unbreakable text (URLs,
    file paths, inline code) wraps at the edge; normal words are unaffected. The theme only
    does this for links (.nested-links a). Code blocks keep their formatting and scroll
-   inside themselves (theme: pre overflow-x auto); media and tables fit the column, and
-   wide tables scroll inside themselves. */
+   inside themselves (theme: pre overflow-x auto); media fit the column, and wide tables
+   scroll inside their wrapper (layouts/_markup/render-table.html), which keeps them
+   real tables for screen readers. */
 .nested-copy-line-height {
   overflow-wrap: anywhere;
 }
@@ -508,215 +537,47 @@ main[role="main"] {
   max-width: 100%;
 }
 
-.nested-copy-line-height table {
-  display: block;
+.table-scroll {
   max-width: 100%;
   overflow-x: auto;
 }
 
-/* Homepage at tablet widths, 30em to 60em: the post list is full width with the nav's
-   32px side padding (its pa4-ns), instead of the theme's 70% column (w-70-ns) plus the
-   cards' own 16px (ph3), so the posts line up with the logo and the last icon */
-@media screen and (min-width: 30em) and (max-width: 59.99em) {
-  .is-home .home-posts {
-    width: 100%;
-  }
+/* ---------- About (/about/, body .page-about) ---------- */
 
-  .home-card > div {
-    padding-left: 0;
-    padding-right: 0;
-  }
+/* The self-portrait as a circle, half the text column's width. The photo isn't square
+   (1000x800), so it's cropped to a square from the center (object-fit: cover) before
+   rounding. Matched by file name, so the About page's Markdown needs no styling hooks. */
+.page-about .post-body img[src*="/self-portrait."] {
+  width: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-/* Homepage cards from 60em (image beside the text): the image is exactly as tall as the
-   text next to it, whatever the title length or tag count, cropped to fill (object-fit:
-   cover, centered). It is positioned out of flow so its own shape never sets the row
-   height; the text does. The preview is cut to 3 lines instead of 4, so with a one-line
-   title the frame is 16:10 (see the fixed width below). Below 60em the stacked image
-   keeps its natural shape and the preview keeps 4 lines. */
-@media screen and (min-width: 60em) {
-  .home-card .flex > div:first-child:not(.blah) {
-    position: relative;
-  }
+/* ---------- Footer (theme's site-footer.html) ---------- */
 
-  .home-card .flex > div:first-child:not(.blah) > a {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 1rem;
-  }
-
-  .home-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .home-card .summary-text {
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-  }
-}
-
-/* ...and the image a fixed 357px wide (column 373px incl. its 16px pr3-l gap; theme: 40%,
-   w-40-l), so the 16:10 frame is
-   always 223px tall: the height of the text block with a one-line title (date, title,
-   tags, 3 preview lines, "read more" and the 1rem/.25rem gaps). The text column takes
-   the rest. If the text sizes or gaps change, recompute: width = text height x 1.6. */
-@media screen and (min-width: 60em) {
-  .home-card .flex > div:first-child:not(.blah) {
-    flex: 0 0 373px;
-    width: 373px;
-  }
-
-  .home-card .blah {
-    flex: 1 1 auto;
-    width: auto;
-    min-width: 0;
-  }
-}
-
-/* All header text (nav links, banner name and subtitle, post and page titles) in the
-   sans font; the body default is Lora */
-header {
-  font-family: "Source Sans Pro", sans-serif;
-}
-
-/* Header nav (layouts/_partials/site-navigation.html): logo on the left (home), Posts /
-   About links and social icons on the right, one row at every width (the theme stacks
-   the right-hand group below 60em). The current page's link is underlined in the accent
-   red. */
-header nav[role="navigation"] > div > div {
-  display: flex;
+/* Name a little smaller than the theme's 20px, sans-serif; name and social icons
+   vertically centered at every width */
+footer[role="contentinfo"] > div {
   align-items: center;
 }
 
-/* Links as a flex row with line-height 1, so each link's box is centered on the icons
-   (the theme's inline-block items sit on a text baseline, about 2px low) */
-header nav[role="navigation"] ul {
-  display: flex;
-  align-items: center;
-  margin: 0;
-}
-
-header nav[role="navigation"] ul li,
-header nav[role="navigation"] ul a {
-  display: block;
-  line-height: 1;
-}
-
-/* ...and the icons centered in their links too (inline, they sit on a baseline, about
-   2px high), so link text and icons share one center line */
-header nav[role="navigation"] .ananke-socials,
-header nav[role="navigation"] .ananke-social-link,
-header nav[role="navigation"] .ananke-social-link .icon,
-header nav[role="navigation"] > div > a {
-  display: flex;
-  align-items: center;
-}
-
-/* The logo too: as a block, its link is exactly its height, centered on the same line */
-header nav[role="navigation"] > div > a img {
-  display: block;
-}
-
-header nav[role="navigation"] .nav-current {
-  text-decoration: underline;
-  text-decoration-color: #e51843;
-  text-decoration-thickness: 2px;
-  text-underline-offset: .35em;
-}
-
-/* Tag pages' banner title (the tag name, or "Tags"; layouts/_partials/site-header.html):
-   80px from 30em like the homepage name, 48px on phones. Tag names can be any length, so
-   it's a fixed size (not the homepage name's fit-to-column formula) and a long word
-   wraps instead of overflowing. */
-.tag-banner h1 {
-  font-size: 3rem;
-  overflow-wrap: anywhere;
-}
-
-@media screen and (min-width: 30em) {
-  .tag-banner h1 {
-    font-size: 5rem;
-  }
-}
-
-/* Banner subtitle ("Senior Software Development Engineer at Amazon") a step larger than
-   the theme's f5 / f3-l (16px / 24px), so the thin weight stays legible */
-.site-banner h2 {
+footer[role="contentinfo"] > div > a {
+  font-family: var(--font-sans);
   font-size: 1.125rem;
 }
 
-@media screen and (min-width: 60em) {
-  .site-banner h2 {
-    font-size: 1.625rem;
-  }
+/* ---------- Code ---------- */
+
+/* Code blocks sized relative to the body text like the old site (theme default is
+   body-size text, double line spacing and 1.5em padding) */
+pre {
+  font-size: .875em;
 }
 
-/* Tag icon before the tag pages' banner title (site-header.html): about cap height, in the
-   title's color, kept on the same line as the title's first letter */
-.tag-title-start {
-  white-space: nowrap;
-}
-
-.tag-icon {
-  width: .6em;
-  height: .6em;
-  margin-right: .2em;
-  vertical-align: -.02em;
-}
-
-/* Links with both of the theme's .link and .dim classes (homepage and /posts/ card
-   titles) fade back as smoothly as they fade out: .link:link / .link:visited set
-   "transition: color" and outrank .dim's "transition: opacity", so the resting state
-   didn't animate opacity and the title snapped back when the mouse left */
-.dim:link,
-.dim:visited {
-  transition: opacity .15s ease-in, color .15s ease-in;
-}
-
-/* /posts/ and tag pages (theme's list.html): the first card's top edge as far below the
-   banner as the homepage's first post (40px below 30em, 48px from 30em). The empty page
-   content block is dropped (it still had pv3 / pv4-l padding), and the grid's top margin
-   (mt5, 4rem) plus the article's top padding (pa3 / pa4-ns) adds up to the gap. */
-main > article > section.cf:empty {
-  display: none;
-}
-
-main > article > section.mt5 {
-  margin-top: 1.5rem;
-}
-
-@media screen and (min-width: 30em) {
-  main > article > section.mt5 {
-    margin-top: 1rem;
-  }
-}
-
-/* Post and About page titles as far below the banner as the homepage's first post (40px
-   below 30em, 48px from 30em). The theme's header mt4 (2rem) and the title's mt3 (1rem)
-   collapse into 32px below 60em (the article is only a flex container from 60em), so
-   the gap is set once, on the title. */
-.is-page article > header {
-  margin-top: 0;
-}
-
-.is-page article > header h1 {
-  margin-top: 2.5rem;
-}
-
-@media screen and (min-width: 30em) {
-  .is-page article > header h1 {
-    margin-top: 3rem;
-  }
-}
-
-/* Homepage card images grow half as much on hover as the theme's grow class (1.05) */
-.home-card a.grow:hover,
-.home-card a.grow:focus {
-  transform: scale(1.025);
+pre code {
+  line-height: 1.5;
+  padding: .5em;
 }
 
 /* Code highlighting (syntax-monokai.css): Monokai's comment and pink colors fail WCAG AA
@@ -731,54 +592,17 @@ main > article > section.mt5 {
   color: #fa518e;
 }
 
-/* About page (/about/, body .page-about): the self-portrait as a circle, half the
-   text column's width. The photo isn't square (1000x800), so it's cropped to a square
-   from the center (object-fit: cover) before rounding. */
-.page-about article img[src*="/self-portrait."] {
-  width: 50%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: 50%;
-}
+/* ---------- Reduced motion ---------- */
 
-/* Tag pills at the bottom of posts (theme's tags.html): a wrapping row with a fixed gap.
-   The theme relies on the whitespace between list items, which the minified production
-   build removes, so the pills touched. */
-.is-page article .nested-links ul:has(> li > a.br-pill) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-}
-
-.is-page article .nested-links ul:has(> li > a.br-pill) a.br-pill {
-  margin: 0;
-}
-
-/* Header nav on the narrowest phones (up to 22.5em / 360px): with three social icons
-   (LinkedIn, GitHub, RSS) the row is ~10px too wide at 320px, which squeezed the logo
-   and pushed "Posts" against it. The logo never shrinks on its own; at these widths
-   it's 40px (from 48), the links' gaps (Posts→About, About→icons) are 10px (from 16),
-   the icons 28px (from 32, still a comfortable tap target) and 4px apart (from 6). */
-header nav[role="navigation"] > div > a {
-  flex-shrink: 0;
-}
-
-@media screen and (max-width: 22.5em) {
-  header nav[role="navigation"] > div > a img {
-    width: 40px;
-    height: auto;
-  }
-
-  header nav[role="navigation"] ul li {
-    padding-right: .625rem;
-  }
-
-  header nav[role="navigation"] .ananke-socials a .icon svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  header nav[role="navigation"] .ananke-social-link {
-    margin-right: .25rem;
+/* Visitors who ask their system for less motion don't get the sliding chevrons or the
+   growing card images; color fades stay */
+@media (prefers-reduced-motion: reduce) {
+  .chevron-button:hover svg,
+  .chevron-button:focus svg,
+  .chevron-button-back:hover svg,
+  .chevron-button-back:focus svg,
+  .home-card .grow:hover,
+  .home-card .grow:focus {
+    transform: none;
   }
 }

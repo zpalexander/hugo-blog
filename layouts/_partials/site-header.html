@@ -4,61 +4,43 @@
      homepage's if it has none), and the nav uses this page, so it marks the right link as
      current. home-banner styles the homepage name (custom.css). Tag pages (/tags/ and
      each tag) show their own title instead, styled by tag-banner. */}}
-{{ $is_tag_page := in (slice "taxonomy" "term") .Kind }}
-{{ $banner := cond $is_tag_page . site.Home }}
+{{ $is_tag_page := collections.In (collections.Slice "taxonomy" "term") .Kind }}
+{{/* The page whose title and description the banner shows */}}
+{{ $title_source := compare.Conditional $is_tag_page . site.Home }}
 {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
 {{ if not $featured_image }}
   {{ $featured_image = partials.Include "func/GetFeaturedImage.html" site.Home }}
 {{ end }}
-{{ if $featured_image }}
-  {{/* Trimming the slash and adding absURL make sure the image works no matter where our site lives */}}
-  {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
-  {{ $header_section_class := .Param "header_section_class" | compare.Default "tc ph3 ph4-ns" }}
-  {{/* The nav is overlaid on the top of the banner so the title can be centered in the full image height.
-       Same height at every width (no jump at 60em). */}}
-  <style>
-    .site-banner { min-height: 22rem; }
-  </style>
-  <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}');">
-    {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
-    <div class="{{ $cover_dimming_class }} site-banner{{ if $banner.IsHome }} home-banner{{ end }}{{ if $is_tag_page }} tag-banner{{ end }} relative flex items-center justify-center">
-      <div class="absolute top-0 left-0 w-100 z-1">
-        {{ partials.Include "site-navigation.html" .}}
-      </div>
-      <div class="{{ $header_section_class }}">
-        <h1 class="f2 f-subheadline-l fw2 white-90 mv0 lh-title">
-          {{ $title := $banner.Title | compare.Default .Site.Title }}
-          {{ if $is_tag_page }}
-            {{/* Tag pages: a tag icon before the title, kept on the same line as its first
-                 letter (not the whole first word, so a very long word can still wrap) */}}
-            <span class="tag-title-start"><svg class="tag-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><path d="M3 4v8.2a1 1 0 0 0 .3.7l8.8 8.8a1 1 0 0 0 1.4 0l8.2-8.2a1 1 0 0 0 0-1.4L12.9 3.3a1 1 0 0 0-.7-.3H4a1 1 0 0 0-1 1z"/><circle cx="7.75" cy="7.75" r="1.5"/></svg>{{ strings.Substr $title 0 1 }}</span>{{ strings.Substr $title 1 }}
-          {{ else }}
-            {{ $title }}
-          {{ end }}
-        </h1>
-        {{ with $banner.Params.description }}
-          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
-            {{ . }}
-          </h2>
-        {{ end }}
-      </div>
+{{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-top" }}
+{{ $header_section_class := .Param "header_section_class" | compare.Default "tc ph3 ph4-ns" }}
+{{/* The nav is overlaid on the top of the banner so the title can be centered in the full
+     image height (.site-banner's fixed height, custom.css). Without
+     any featured image (none on the page or the homepage), the banner is the site's
+     background color. */}}
+<header class="{{ with $featured_image }}{{ $featured_image_class }}{{ else }}{{ site.Params.background_color_class | compare.Default "bg-black" }}{{ end }}"{{ with $featured_image }} style="background-image: url('{{ . }}');"{{ end }}>
+  {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+  <div class="{{ $cover_dimming_class }} site-banner{{ if $title_source.IsHome }} home-banner{{ end }}{{ if $is_tag_page }} tag-banner{{ end }} relative flex items-center justify-center">
+    <div class="absolute top-0 left-0 w-100 z-1">
+      {{ partials.Include "site-navigation.html" .}}
     </div>
-  </header>
-{{ else }}
-  <header>
-    <div class="pb3-m pb6-l {{ .Site.Params.background_color_class | compare.Default "bg-black" }}">
-      {{ partials.Include "site-navigation.html" . }}
-      {{ $header_section_class := .Param "header_section_class" | compare.Default "tc pv3 ph3 ph4-ns" }}
-      <div class="{{ $header_section_class }}">
-        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
-          {{ .Title | compare.Default .Site.Title }}
-        </h1>
-        {{ with .Params.description }}
-          <h2 class="fw1 f5 f3-l white-80 measure-wide-l center lh-copy mt3 mb4">
-            {{ . }}
-          </h2>
+    <div class="{{ $header_section_class }}">
+      {{/* 80px (f-subheadline) from 30em. Below 30em: tag names 48px (f1), the homepage
+           name sized to fit the column (custom.css) */}}
+      <h1 class="{{ if $is_tag_page }}f1 lh-title{{ else }}lh-solid{{ end }} f-subheadline-ns fw2 white-90 mv0">
+        {{ $title := $title_source.Title | compare.Default site.Title }}
+        {{ if $is_tag_page }}
+          {{/* Tag pages: a tag icon before the title, kept on the same line as its first
+               letter (not the whole first word, so a very long word can still wrap) */}}
+          <span class="tag-icon-with-first-letter"><svg class="tag-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><path d="M3 4v8.2a1 1 0 0 0 .3.7l8.8 8.8a1 1 0 0 0 1.4 0l8.2-8.2a1 1 0 0 0 0-1.4L12.9 3.3a1 1 0 0 0-.7-.3H4a1 1 0 0 0-1 1z"/><circle cx="7.75" cy="7.75" r="1.5"/></svg>{{ strings.Substr $title 0 1 }}</span>{{ strings.Substr $title 1 }}
+        {{ else }}
+          {{ $title }}
         {{ end }}
-      </div>
+      </h1>
+      {{ with $title_source.Params.description }}
+        <h2 class="site-banner-subtitle fw1 white-80 measure-wide-l center mt3">
+          {{ . }}
+        </h2>
+      {{ end }}
     </div>
-  </header>
-{{ end }}
+  </div>
+</header>

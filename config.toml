@@ -7,8 +7,8 @@ theme = "ananke"
 enableRobotsTXT = true
 
 # The RSS feed also at /rss/ (Ghost's feed URL), so existing subscribers keep working;
-# Hugo's own feed stays at /index.xml. Written as /rss/index.xml. Whether Pages serves
-# that for /rss/ (and with an XML content type) is tested on the github.io deploy.
+# Hugo's own feed stays at /index.xml. Written as /rss/index.xml, which Pages serves for
+# /rss/ as application/xml.
 [outputFormats.GhostRSS]
   mediaType = "application/rss+xml"
   baseName = "index"
@@ -43,7 +43,8 @@ enableRobotsTXT = true
   weight = 20
 
 [params]
-  text_color = ""
+  # <body> classes (theme default "avenir bg-near-white"): the body font, Lora, is set in custom.css
+  body_classes = "bg-near-white"
   # the old Ghost site's favicon (16x16), from its zach-ghost theme
   favicon = "/favicon.ico"
   site_logo = "/images/logo.png"
@@ -55,10 +56,13 @@ enableRobotsTXT = true
   featured_image_class = "cover bg-center"
   recent_posts_number = 5
   disable_share = true
+  # GoatCounter analytics site code (https://zpalexander.goatcounter.com), used in
+  # layouts/_partials/hooks/head-end.html
+  goatcounter = "zpalexander"
   # dates like the old site: "20 December 2017"
   date_format = "2 January 2006"
-  # post body: the theme's serif font, justified (tachyons "tj") like the old site
-  post_content_classes = "serif tj"
+  # post body justified (tachyons "tj") like the old site; its font is the body font, Lora (custom.css)
+  post_content_classes = "tj"
 
 # Default banner image for the homepage, list pages and 404 (Ananke 2.19 no longer falls
 # back to a site-wide featured_image param). Single pages (posts, About) show a banner
@@ -77,7 +81,9 @@ enableRobotsTXT = true
     path = "/about"
 
 [params.ananke]
-  # files in assets/ananke/css, bundled into the theme's main.css
+  # files in assets/ananke/css, bundled into the theme's main.css after the theme's own
+  # styles, in this order. The order matters: custom.css overrides both the theme and
+  # syntax-monokai.css, often with selectors of equal specificity.
   custom_css = ["syntax-monokai.css", "custom.css"]
 
 [params.ananke.social.follow]

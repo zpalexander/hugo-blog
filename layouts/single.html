@@ -1,10 +1,5 @@
-{{ define "header" }}
-   {{/* We can override any block in the baseof file be defining it in the template */}}
-  {{/* Posts and pages show the homepage's banner (name, subtitle, nav), with their own
-       featured image as the background; see layouts/_partials/site-header.html */}}
-  {{ partials.Include "site-header.html" . }}
-{{ end }}
-
+{{/* The header is baseof.html's default, site-header.html: posts and pages show the
+     homepage's banner (name, subtitle, nav) with their own featured image */}}
 {{ define "main" }}
   {{/* Related posts render below the article ("Up Next...") instead of in the sidebar,
        so the sidebar is only used for a table of contents */}}
@@ -19,11 +14,14 @@
     {{- $post_class = printf "page-%s" .ContentBaseName -}}
   {{- end -}}
 
-  <article class="{{ $post_class }} flex-l {{ if $needs_aside }}mw8{{ else }}mw7{{ end }} center ph3 flex-wrap justify-between">
-    <header class="mt4 w-100">
-      {{- partials.Include "hook.html" ( dict "hook" "article/section-link"  "context" . ) -}}
+  {{/* Below 60em the article is full width with the nav's 32px side padding (ph4), so the
+       text lines up with the logo and the last icon; from 60em the theme's centered
+       48rem column (64rem with a table of contents) and 16px padding. Title and date
+       centered, like the old site. */}}
+  <article class="{{ $post_class }} flex-l {{ if $needs_aside }}mw8-l{{ else }}mw7-l{{ end }} center ph4 ph3-l flex-wrap justify-between">
+    <header class="w-100 tc">
       {{- partials.IncludeCached "social/share.html" . . -}}
-      <h1 class="f1 athelas mt3 mb1">
+      <h1 class="post-title fw7 black mb1">
         {{- .Title -}}
       </h1>
       {{ with .Params.author | compare.Default .Site.Params.author }}
@@ -39,12 +37,7 @@
         </strong>
       </p>
       {{ end }}
-      {{/* Hugo uses Go's date formatting is set by example. Here are two formats */}}
-      {{ if partials.Include "func/ShowDate.html" . }}
-      <time class="f6 mv4 dib tracked" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
-        {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
-      </time>
-      {{end}}
+      {{ partials.Include "post-date.html" (dict "page" . "class" "post-date db mv4 b") }}
 
       {{/*
           Show "reading time" and "word count" but only if one of the following are true:
@@ -63,7 +56,9 @@
         <span class="f6 mv4 dib tracked"> - {{ lang.Translate "wordCount" .WordCount }} </span>
       {{ end }}
     </header>
-    <div class="nested-copy-line-height lh-copy {{ $.Param "post_content_classes"  | compare.Default "serif"}} f4 nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }} {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl4-l" "pr4-l" }} {{ if $needs_aside }}w-two-thirds-l{{ else }}w-100-l{{ end }}">
+    {{/* post-body: no side padding (the theme's pr4-l made room for a "Related" sidebar
+         posts no longer have), so the text is centered under the title */}}
+    <div class="post-body nested-copy-line-height lh-copy {{ $.Param "post_content_classes" }} f4 nested-links {{ if $needs_aside }}w-two-thirds-l{{ else }}w-100-l{{ end }}">
       {{- partials.Include "hook.html" (dict "hook" "content-before" "context" .) -}}
       {{- .Content -}}
       {{- partials.Include "hook.html" (dict "hook" "content-after" "context" .) -}}

@@ -1,0 +1,7 @@
+{{/* The homepage's post paginator: recent_posts_number posts per page, at /, /page/2/ ...
+     Used by both the title block and the post list in layouts/home.html. Hugo builds a
+     page's paginator on its first .Paginate call and every later call must pass the same
+     arguments, so they live here once. */}}
+{{- $main_sections := site.Params.mainSections | compare.Default (collections.Slice "posts") -}}
+{{- $posts := collections.Where site.RegularPages "Section" "in" $main_sections -}}
+{{- return .Paginate $posts (.Param "recent_posts_number" | compare.Default 3) -}}

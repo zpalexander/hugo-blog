@@ -1,0 +1,5 @@
+{{/* A page's summary as plain text for the summary cards (summary.html,
+     summary-with-image.html), so images and embeds from the article never appear in a
+     card. Block ends and line breaks become spaces first, so words from neighbouring
+     paragraphs don't run together. */}}
+{{- return (.Summary | strings.ReplaceRE `</(p|li|h[1-6]|blockquote|pre|figure|div)>|<br\s*/?>` " " | transform.Plainify | transform.HTMLUnescape) -}}

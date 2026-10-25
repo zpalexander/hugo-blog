@@ -7,3 +7,7 @@ other = "Read More"
 # Heading of the related posts box at the bottom of each post
 [related]
 other = "Up Next..."
+
+# The 404 page's browser title (layouts/baseof.html) and banner (layouts/_partials/page-header.html)
+[pageNotFound]
+other = "Page not found"

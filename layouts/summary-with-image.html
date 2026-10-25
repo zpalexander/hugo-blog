@@ -1,40 +1,33 @@
 {{ $featured_image := partials.Include "func/GetFeaturedImage.html" . }}
-{{ $show_date := partials.Include "func/ShowDate.html" . }}
-{{/* home-card: vertical spacing set in assets/ananke/css/custom.css */}}
+{{/* home-card: homepage post list entry; spacing and the image column set in assets/ananke/css/custom.css.
+     Side padding 16px on phones only: from 30em the post list's own padding lines it up with the nav. */}}
 <article class="home-card bb b--black-10">
-  <div class="db pv4 ph3 ph0-l dark-gray no-underline">
+  <div class="db pv4 ph3 ph0-ns dark-gray no-underline">
     {{/* Image above the text below 60em (theme: beside it from 30em, too cramped on phones and tablets) */}}
-    <div class="flex-column flex-row-l flex">
+    <div class="home-card-row flex flex-column flex-row-l">
       {{ if $featured_image }}
-          {{/* Trimming the slash and adding absURL make sure the image works no matter collections.Where our site lives */}}
-        <div class="{{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pl3-l" "pr3-l" }} mb4 mb0-l w-100 w-40-l">
+        <div class="home-card-image w-100">
           <a href="{{.RelPermalink}}" class="db grow">
-            <img src="{{ $featured_image }}" class="img" alt="image from {{ .Title }}">
+            <img src="{{ $featured_image }}" class="img db" alt="image from {{ .Title }}">
           </a>
         </div>
       {{ end }}
-      <div class="blah w-100{{ if $featured_image }} w-60-l {{ compare.Conditional (compare.Eq $.Site.Language.Direction "rtl") "pr3-l" "pl3-l" }}{{ end }}">
-        <h1 class="f3 fw7 athelas mt0 lh-title">
+      <div class="home-card-text w-100">
+        <h1 class="card-title f3 fw7 mv0 lh-title">
           <a href="{{.RelPermalink}}" class="color-inherit dim link">
             {{ .Title }}
             </a>
         </h1>
         {{/* Date below the title, like post pages */}}
-        {{ if $show_date }}
-          <time class="f6 db" {{ fmt.Printf `datetime="%s"` (.Date.Format "2006-01-02T15:04:05Z07:00") | safe.HTMLAttr }}>
-            {{- .Date | time.Format (compare.Default "January 2, 2006" .Site.Params.date_format) -}}
-          </time>
-        {{ end }}
+        {{ partials.Include "post-date.html" (dict "page" . "class" "card-date f6 db mt1") }}
         {{ partials.Include "summary-tags.html" . }}
         <div class="summary-text f6 f5-l lh-copy nested-copy-line-height nested-links">
-          {{/* Plain text only, so images and embeds from the article never appear in the summary */}}
-          {{ .Summary | strings.ReplaceRE `</(p|li|h[1-6]|blockquote|pre|figure|div)>|<br\s*/?>` " " | transform.Plainify | transform.HTMLUnescape }}
+          {{ partials.Include "func/summary-plain-text.html" . }}
         </div>
         {{ with .Params.author | compare.Default .Site.Params.author }}
           <p class="f6 lh-copy mv0">By {{ . }}</p>
         {{- end -}}
-        {{/* Styled in assets/ananke/css/custom.css to match the old site's buttons */}}
-        <a href="{{.RelPermalink}}" class="read-more">{{ $.Param "read_more_copy" | compare.Default (lang.Translate "readMore") }}<svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="5,2 11,8 5,14" fill="none" stroke="currentColor" stroke-width="3"/></svg></a>
+        {{ partials.Include "chevron-button.html" (dict "href" .RelPermalink "label" ($.Param "read_more_copy" | compare.Default (lang.Translate "readMore"))) }}
       </div>
     </div>
   </div>
