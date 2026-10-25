@@ -369,10 +369,10 @@ header nav[role="navigation"] .ananke-social-link {
 }
 
 /* Homepage banner name on phones, below 30em: as wide as the post column below it
-   (100% - 64px, layouts/home.html padding), so it wraps to "Zach" / "Alexander" and
-   "Alexander" spans the column. Sized in container units of the banner (so a desktop
+   (100% - 64px, layouts/home.html padding), so it wraps to "Zach" / "Alexander", and
+   "Alexander" spans 88% of the column. Sized in container units of the banner (so a desktop
    scrollbar doesn't count). "Alexander" in Source Sans Pro 200 is 3.946em wide;
-   0.2483 = 0.98 / 3.946, leaving a little slack so it never overflows. From 30em it's
+   0.2235 = 0.88 / 3.946. From 30em it's
    a fixed 5rem (80px), the theme's desktop size (f-subheadline-l), instead of the
    theme's 36px up to 60em. */
 @media screen and (min-width: 30em) {
@@ -391,8 +391,8 @@ header nav[role="navigation"] .ananke-social-link {
     margin-left: auto;
     margin-right: auto;
     /* capped at the 30em+ size (5rem), so wider phones don't push the name into the nav
-       and there's no size jump at 30em; the cap takes over from about 386px wide */
-    font-size: min(calc((100cqw - 64px) * .2483), 5rem);
+       and there's no size jump at 30em; the cap takes over from about 422px wide */
+    font-size: min(calc((100cqw - 64px) * .2235), 5rem);
   }
 }
 
