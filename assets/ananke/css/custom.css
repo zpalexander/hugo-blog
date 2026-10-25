@@ -715,3 +715,26 @@ main > article > section.mt5 {
 .chroma .kn, .chroma .nt, .chroma .o, .chroma .ow, .chroma .or, .chroma .gd {
   color: #fa518e;
 }
+
+/* About page (/resume/, body .page-resume): the self-portrait as a circle, half the
+   text column's width. The photo isn't square (1000x800), so it's cropped to a square
+   from the center (object-fit: cover) before rounding. */
+.page-resume article img[src*="/self-portrait."] {
+  width: 50%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Tag pills at the bottom of posts (theme's tags.html): a wrapping row with a fixed gap.
+   The theme relies on the whitespace between list items, which the minified production
+   build removes, so the pills touched. */
+.is-page article .nested-links ul:has(> li > a.br-pill) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.is-page article .nested-links ul:has(> li > a.br-pill) a.br-pill {
+  margin: 0;
+}
